@@ -38,10 +38,13 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative flex items-center justify-center min-h-screen overflow-hidden c-space">
+    <section className="relative flex items-center justify-center min-h-screen overflow-hidden">
+      {/* Background gradient for blur effect to work against */}
+      <div className="absolute inset-0 " />
+      
       {/* Main Container */}
       <motion.div 
-        className="relative z-30 w-full max-w-7xl mx-auto px-6 md:px-12"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 c-space"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -94,7 +97,7 @@ const Hero = () => {
               }}
               onHoverStart={handleHoverStart}
               onHoverEnd={handleHoverEnd}
-              className="relative transform-gpu" // Force GPU layer
+              className="relative transform-gpu"
             >
               {/* Subtle Glow - Performance Optimized */}
               <motion.div
@@ -197,7 +200,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

@@ -23,9 +23,9 @@ const HeroText = () => {
   };
 
   return (
-    <div className="text-center md:mt-40 md:text-left rounded-3xl bg-clip-text">
+    <div className="text-center md:text-left rounded-3xl bg-clip-text">
       {/* Desktop View */}
-      <div className="flex-col hidden md:flex c-space">
+      <div className="flex-col hidden md:flex space-y-2">
         <motion.h1
           className="text-4xl font-medium"
           variants={variants}
@@ -36,7 +36,7 @@ const HeroText = () => {
           Hi I'm Thomas
         </motion.h1>
         
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start space-y-1">
           <motion.p
             className="text-4xl fonn text-neutral-300"
             variants={variants}
@@ -52,7 +52,7 @@ const HeroText = () => {
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="transform-gpu" // Force GPU acceleration
+            className="transform-gpu -mt-2"
           >
             <FlipWords
               words={words}
@@ -62,7 +62,7 @@ const HeroText = () => {
           </motion.div>
           
           <motion.p
-            className="text-4xl font-medium text-neutral-300"
+            className="text-4xl font-medium text-neutral-300 -mt-4"
             variants={variants}
             initial="hidden"
             animate="visible"
@@ -74,7 +74,7 @@ const HeroText = () => {
       </div>
       
       {/* Mobile View */}
-      <div className="flex flex-col space-y-6 md:hidden">
+      <div className="flex flex-col space-y-4 md:hidden">
         <motion.p
           className="text-4xl font-medium"
           variants={variants}
@@ -85,7 +85,7 @@ const HeroText = () => {
           Hi, I'm Thomas
         </motion.p>
         
-        <div>
+        <div className="space-y-1">
           <motion.p
             className="text-5xl font-black text-neutral-300"
             variants={variants}
@@ -101,7 +101,7 @@ const HeroText = () => {
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="transform-gpu"
+            className="transform-gpu -mt-2"
           >
             <FlipWords
               words={words}
@@ -111,7 +111,7 @@ const HeroText = () => {
           </motion.div>
           
           <motion.p
-            className="text-4xl font-black text-neutral-300"
+            className="text-4xl font-black text-neutral-300 -mt-3"
             variants={variants}
             initial="hidden"
             animate="visible"
