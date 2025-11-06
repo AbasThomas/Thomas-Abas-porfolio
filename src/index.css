@@ -151,6 +151,18 @@ body {
     background-position: 40px 40px, 40px 40px;
   }
 }
+html, body {
+  height: 100%;
+}
+
+.lenis {
+  height: 100%;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
 
 .animate-gridMove {
   animation: gridMove 8s linear infinite;
@@ -163,3 +175,10 @@ body {
   background-size: 40px 40px;
   will-change: background-position;
 }
+/* ============================= */
+/* 🌐 GLOBAL SCROLLING BEHAVIOR */
+/* ============================= */
+html {
+  scroll-behavior: smooth;
+}
+
