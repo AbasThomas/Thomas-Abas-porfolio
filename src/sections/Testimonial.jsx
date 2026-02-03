@@ -1,10 +1,10 @@
 import { twMerge } from "tailwind-merge";
 import Marquee from "../components/Marquee";
-import { reviews } from "../constants";
-const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
+import { clientReviews } from "../constants";
+const firstRow = clientReviews.slice(0, clientReviews.length / 2);
+const secondRow = clientReviews.slice(clientReviews.length / 2);
 
-const ReviewCard = ({ img, name, username, body }) => {
+const ReviewCard = ({ img, name, position, review }) => {
   return (
     <figure
       className={twMerge(
@@ -23,10 +23,10 @@ const ReviewCard = ({ img, name, username, body }) => {
           <figcaption className="text-sm font-medium text-white">
             {name}
           </figcaption>
-          <p className="text-xs font-medium text-white/40">{username}</p>
+          <p className="text-xs font-medium text-white/40">{position}</p>
         </div>
       </div>
-      <blockquote className="mt-2 text-sm">{body}</blockquote>
+      <blockquote className="mt-2 text-sm">{review}</blockquote>
     </figure>
   );
 };
@@ -37,13 +37,13 @@ export default function Testimonial() {
       <h2 className="text-heading">Hear From My Clients</h2>
       <div className="relative flex flex-col items-center justify-center w-full mt-12 overflow-hidden">
         <Marquee pauseOnHover className="[--duration:20s]">
-          {firstRow.map((review) => (
-            <ReviewCard key={review.username} {...review} />
+          {firstRow.map((review, idx) => (
+            <ReviewCard key={idx} {...review} />
           ))}
         </Marquee>
         <Marquee reverse pauseOnHover className="[--duration:20s]">
-          {secondRow.map((review) => (
-            <ReviewCard key={review.username} {...review} />
+          {secondRow.map((review, idx) => (
+            <ReviewCard key={idx} {...review} />
           ))}
         </Marquee>
         <div className="absolute inset-y-0 left-0 w-1/4 pointer-events-none bg-gradient-to-r from-primary"></div>
