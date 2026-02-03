@@ -66,62 +66,66 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
   };
 
   useEffect(() => {
-    let globe;
-    if (!canvasRef.current) return;
+    let globeInstance = null;
+    let canvasElement = canvasRef.current;
 
-    const canvas = canvasRef.current;
+    if (!canvasElement) return;
 
-    // Get initial width
-    let currentWidth = canvas.offsetWidth;
-    if (currentWidth === 0) currentWidth = 500;
+    // Use a slight delay or wait for next frame to ensure parent layout is calculated
+    const initGlobe = () => {
+      const rect = canvasElement.getBoundingClientRect();
+      const containerWidth = rect.width || 500;
 
-    try {
-      globe = createGlobe(canvas, {
-        ...config,
-        width: currentWidth * 2,
-        height: currentWidth * 2,
-        onRender: (state) => {
-          if (!pointerInteracting.current) {
-            phi.current += 0.005;
+      try {
+        globeInstance = createGlobe(canvasElement, {
+          ...config,
+          width: containerWidth * 2,
+          height: containerWidth * 2,
+          onRender: (state) => {
+            // Internal safety check: if state is undefined, cobe might be in a bad state
+            if (!state) return;
+
+            if (!pointerInteracting.current) {
+              phi.current += 0.005;
+            }
+            state.phi = phi.current + rs.get();
+            state.width = containerWidth * 2;
+            state.height = containerWidth * 2;
+          },
+        });
+
+        // Visually reveal the globe
+        requestAnimationFrame(() => {
+          if (canvasElement) {
+            canvasElement.style.opacity = "1";
           }
-          state.phi = phi.current + rs.get();
-        },
-      });
-
-      // Simple delay to ensure smooth entry
-      requestAnimationFrame(() => {
-        if (canvasRef.current) {
-          canvasRef.current.style.opacity = "1";
-        }
-      });
-    } catch (e) {
-      console.error("Cobe initialization failed", e);
-    }
-
-    const onResize = () => {
-      if (canvasRef.current) {
-        // We don't necessarily need to re-create the globe on every resize
-        // But we should update the width if needed. 
-        // For simplicity, we can let CSS handle the display scaling.
+        });
+      } catch (err) {
+        console.error("Globe creation error:", err);
       }
     };
 
-    window.addEventListener("resize", onResize);
+    // Initialize with a timeout to escape React's Strict Mode double-mount issues
+    const timeoutId = setTimeout(initGlobe, 50);
+
     return () => {
-      if (globe) globe.destroy();
-      window.removeEventListener("resize", onResize);
+      clearTimeout(timeoutId);
+      if (globeInstance) {
+        globeInstance.destroy();
+        globeInstance = null;
+      }
     };
   }, [config, rs]);
 
   return (
     <div
       className={twMerge(
-        "mx-auto aspect-square w-full max-w-[600px] flex items-center justify-center",
+        "relative mx-auto aspect-square w-full max-w-[600px] flex items-center justify-center",
         className
       )}
     >
       <canvas
-        className="w-full h-full opacity-0 transition-opacity duration-1000"
+        className="w-full h-full opacity-0 transition-opacity duration-1000 cursor-grab active:cursor-grabbing"
         ref={canvasRef}
         style={{ maxWidth: '100%', aspectRatio: '1/1' }}
         onPointerDown={(e) => {

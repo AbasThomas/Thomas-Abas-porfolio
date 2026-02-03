@@ -6,191 +6,189 @@ import { motion } from "framer-motion";
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 853 });
   const [isImageHovered, setIsImageHovered] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    if (isMobile) return;
+    const { clientX, clientY } = e;
+    setMousePos({ x: clientX, y: clientY });
+  };
 
   // Memoized hover handlers
   const handleHoverStart = useCallback(() => setIsImageHovered(true), []);
   const handleHoverEnd = useCallback(() => setIsImageHovered(false), []);
 
-  // Optimized variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        duration: 0.8
-      }
+      transition: { staggerChildren: 0.15, duration: 0.8 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        type: "spring",
-        damping: 25,
-        stiffness: 200,
-        duration: 0.8
-      }
+      transition: { type: "spring", damping: 25, stiffness: 200 }
     }
   };
 
   return (
-    <section className="relative flex items-center justify-center min-h-screen overflow-hidden">
-      {/* Background gradient for blur effect to work against */}
-      <div className="absolute inset-0 " />
+    <section
+      onMouseMove={handleMouseMove}
+      className="relative flex items-center justify-center min-h-screen overflow-hidden py-20"
+    >
+      {/* Dynamic Interactive Spotlight */}
+      {!isMobile && (
+        <motion.div
+          animate={{
+            x: mousePos.x - 400,
+            y: mousePos.y - 400,
+          }}
+          transition={{ type: "spring", damping: 50, stiffness: 100, mass: 0.5 }}
+          className="absolute w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none z-0 opacity-50"
+        />
+      )}
 
-      {/* Main Container */}
+      {/* Background Decorative Elements */}
+      <div className="absolute top-1/4 -left-20 w-64 h-64 bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
+
       <motion.div
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 c-space"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh] py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-          {/* Text Column - Better Alignment */}
-          <motion.div
-            className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8"
-            variants={itemVariants}
-          >
-            <div className="w-full">
-              <HeroText />
-            </div>
-
-            {/* Availability Indicator */}
-            <motion.div
-              variants={itemVariants}
-              className="flex items-center justify-center lg:justify-start space-x-3 text-white/80 mt-4"
-            >
-              <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></div>
-              <p className="text-sm lg:text-base tracking-wide">
-                Available for new opportunities
-              </p>
+          {/* Text Column */}
+          <div className="flex flex-col space-y-8 lg:space-y-10">
+            {/* Status Badge */}
+            <motion.div variants={itemVariants} className="flex">
+              <div className="px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center gap-3">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/70">Available for Hire</span>
+              </div>
             </motion.div>
-          </motion.div>
 
-          {/* Profile Image Column - Better Centering */}
-          <motion.div
-            className="flex justify-center lg:justify-end items-center"
-            variants={itemVariants}
-            transition={{ delay: 0.3 }}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.8,
-                type: "spring",
-                stiffness: 100,
-                damping: 20
-              }}
-              whileHover={{
-                scale: 1.03,
-                transition: {
-                  duration: 0.3,
-                  type: "spring",
-                  stiffness: 400
-                }
-              }}
-              onHoverStart={handleHoverStart}
-              onHoverEnd={handleHoverEnd}
-              className="relative transform-gpu"
-            >
-              {/* Subtle Glow - Performance Optimized */}
-              <motion.div
-                animate={{
-                  scale: isImageHovered ? 1.15 : 1,
-                  opacity: isImageHovered ? 0.4 : 0.2,
-                }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-xl transform-gpu"
-                style={{ willChange: "transform, opacity" }}
-              />
+            <motion.div variants={itemVariants}>
+              <HeroText />
+            </motion.div>
 
-              {/* Main Profile Image Container */}
-              <motion.div
-                animate={{
-                  rotateZ: isImageHovered ? 1 : 0,
-                  y: isImageHovered ? -3 : 0,
-                }}
-                transition={{
-                  duration: 0.3,
-                  type: "spring",
-                  stiffness: 400,
-                }}
-                className="relative transform-gpu"
-                style={{ willChange: "transform" }}
+            {/* CTA Buttons */}
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
+              <a
+                href="#projects"
+                className="group relative px-8 py-4 bg-white text-black font-black uppercase tracking-wider text-xs rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95"
               >
-                <img
-                  src="/assets/my_image.jpeg"
-                  alt="Abas Thomas"
-                  className="w-44 h-44 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full border-4 border-white/20 shadow-2xl object-cover relative z-10 transform-gpu"
-                  loading="eager"
-                  decoding="sync"
-                />
+                <span className="relative z-10">Selected Works</span>
+                <div className="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <span className="relative z-10 group-hover:text-white transition-colors ml-2 inline-block">→</span>
+              </a>
 
-                {/* Floating Orbs - Reduced motion for performance */}
-                <motion.div
-                  animate={{
-                    rotate: 360,
-                    scale: isImageHovered ? 1.05 : 1,
-                  }}
-                  transition={{
-                    rotate: {
-                      duration: 25,
-                      repeat: Infinity,
-                      ease: "linear"
-                    },
-                    scale: { duration: 0.4 },
-                  }}
-                  className="absolute -top-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-yellow-400 rounded-full opacity-60 blur-sm transform-gpu"
-                  style={{ willChange: "transform" }}
-                />
-                <motion.div
-                  animate={{
-                    rotate: -360,
-                    scale: isImageHovered ? 1.05 : 1,
-                  }}
-                  transition={{
-                    rotate: {
-                      duration: 20,
-                      repeat: Infinity,
-                      ease: "linear"
-                    },
-                    scale: { duration: 0.4 },
-                  }}
-                  className="absolute -bottom-2 -left-2 w-5 h-5 sm:w-7 sm:h-7 bg-cyan-400 rounded-full opacity-60 blur-sm transform-gpu"
-                  style={{ willChange: "transform" }}
-                />
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText("your.email@example.com");
+                  alert("Email copied!");
+                }}
+                className="px-8 py-4 bg-white/5 border border-white/10 text-white font-black uppercase tracking-wider text-xs rounded-2xl backdrop-blur-md hover:bg-white/10 transition-all hover:border-white/20 active:scale-95"
+              >
+                Copy Email
+              </button>
+            </motion.div>
+
+            {/* Micro Stats */}
+            <motion.div variants={itemVariants} className="flex items-center gap-8 pt-6 border-t border-white/5">
+              <div className="flex flex-col">
+                <span className="text-2xl font-black text-white">15+</span>
+                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Projects Built</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-black text-white">5+</span>
+                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Tech Stack</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-black text-white">2+</span>
+                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Years Exp</span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Profile Column */}
+          <motion.div
+            className="relative flex justify-center lg:justify-end"
+            variants={itemVariants}
+          >
+            <div className="relative transform-gpu">
+              {/* Profile Image with 3D Effect */}
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                onHoverStart={handleHoverStart}
+                onHoverEnd={handleHoverEnd}
+                className="relative z-10 w-64 h-64 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-[3rem] p-4 border border-white/20 bg-white/[0.03] backdrop-blur-xl group overflow-hidden shadow-2xl"
+              >
+                <div className="w-full h-full rounded-[2.5rem] overflow-hidden relative">
+                  <img
+                    src="/assets/my_image.jpeg"
+                    alt="Thomas Abas"
+                    className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+
+                {/* Shine Streak */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               </motion.div>
 
-              {/* Rotating Ring - Slower for performance */}
+              {/* Floating Glass Tags */}
               <motion.div
                 animate={{
-                  rotate: 360,
-                  scale: isImageHovered ? 1.05 : 1,
+                  y: [0, -10, 0],
+                  rotate: [5, 10, 5],
                 }}
-                transition={{
-                  rotate: {
-                    duration: 12,
-                    repeat: Infinity,
-                    ease: "linear"
-                  },
-                  scale: { duration: 0.4 },
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-6 -right-6 z-20 px-4 py-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-xl hover:bg-white/20 transition-colors pointer-events-none hidden md:block"
+              >
+                <span className="text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-400" /> React Expert
+                </span>
+              </motion.div>
+
+              <motion.div
+                animate={{
+                  y: [0, 10, 0],
+                  rotate: [-5, -10, -5],
                 }}
-                className="absolute border-2 border-purple-400/30 rounded-full transform-gpu"
-                style={{
-                  top: "-10px",
-                  bottom: "-10px",
-                  left: "-10px",
-                  right: "-10px",
-                  willChange: "transform",
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute bottom-10 -left-10 z-20 px-4 py-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-xl hover:bg-white/20 transition-colors pointer-events-none hidden md:block"
+              >
+                <span className="text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-purple-400" /> Spring Boot
+                </span>
+              </motion.div>
+
+              <motion.div
+                animate={{
+                  x: [0, 5, 0],
                 }}
-              />
-            </motion.div>
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-1/2 -left-14 z-20 px-4 py-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-xl hover:bg-white/20 transition-colors pointer-events-none hidden md:block"
+              >
+                <span className="text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400" /> AI / ML
+                </span>
+              </motion.div>
+
+              {/* Decorative Rings */}
+              <div className="absolute inset-0 -m-8 border border-white/5 rounded-full animate-[spin_20s_linear_infinite]" />
+              <div className="absolute inset-0 -m-14 border border-white/[0.02] rounded-full animate-[spin_30s_linear_infinite_reverse]" />
+            </div>
           </motion.div>
         </div>
       </motion.div>
@@ -199,30 +197,11 @@ const Hero = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center transform-gpu"
-          style={{ willChange: "transform" }}
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="w-1 h-3 bg-white/60 rounded-full mt-2 transform-gpu"
-            style={{ willChange: "transform" }}
-          />
-        </motion.div>
+        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-white/20">Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-blue-600 to-transparent" />
       </motion.div>
     </section>
   );

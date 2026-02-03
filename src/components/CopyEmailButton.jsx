@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
+
 const CopyEmailButton = () => {
   const [copied, setCopied] = useState(false);
   const email = "abasienyenethomas2@gmail.com";
@@ -12,40 +13,46 @@ const CopyEmailButton = () => {
       setCopied(false);
     }, 2000);
   };
+
   return (
     <motion.button
       onClick={copyToClipboard}
-      whileHover={{ y: -5 }}
-      whileTap={{ scale: 1.05 }}
-      className="relative px-1 py-4 text-sm text-center rounded-full font-extralight bg-primary w-[12rem] cursor-pointer overflow-hidden"
+      whileTap={{ scale: 0.95 }}
+      className={`group relative w-full py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] overflow-hidden transition-all duration-300 shadow-2xl ${copied ? 'bg-green-500 text-white' : 'bg-white text-black hover:bg-white/90'
+        }`}
     >
       <AnimatePresence mode="wait">
         {copied ? (
-          <motion.p
+          <motion.div
             className="flex items-center justify-center gap-2"
             key="copied"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.1, ease: "easeInOut" }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
           >
-            <img src="assets/copy-done.svg" className="w-5" alt="copy Icon" />
-            Email has Copied
-          </motion.p>
+            <span className="text-lg">✓</span>
+            Email Copied
+          </motion.div>
         ) : (
-          <motion.p
+          <motion.div
             className="flex items-center justify-center gap-2"
             key="copy"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
           >
-            <img src="assets/copy.svg" className="w-5" alt="copy icon" />
-            Copy Email Address
-          </motion.p>
+            <img src="assets/copy.svg" className="w-4 group-hover:invert transition-all" alt="copy icon" />
+            Copy Email
+          </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Shine Streak */}
+      {!copied && (
+        <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
+      )}
     </motion.button>
   );
 };

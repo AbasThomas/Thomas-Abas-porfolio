@@ -10,27 +10,29 @@ import Contact from "./sections/Contact";
 import Footer from './sections/Footer';
 import ScrollGridBackground from "./components/AnimatedGridBackground";
 import Chatbot from "./components/Chatbot";
+import Terminal from "./components/Terminal";
 
 const App = () => {
   return (
-    <div className="container mx-auto max-w-7xl">
+    <div className="container mx-auto max-w-7xl relative">
+      <Terminal />
       <ScrollGridBackground />
       <Navbar />
-      <section id="home">
+      <section id="home" className="relative">
         <Hero />
       </section>
       <About />
       <Process />
-      <section id="projects">
+      <section id="projects" className="relative">
         <Projects />
       </section>
-      <section id="skills">
+      <section id="skills" className="relative">
         <Skills />
       </section>
-      <section id="experience">
+      <section id="experience" className="relative">
         <Experiences />
       </section>
-      <section id="contact">
+      <section id="contact" className="relative">
         <Contact />
       </section>
       <Footer />

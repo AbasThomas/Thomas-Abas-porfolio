@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [showWelcome, setShowWelcome] = useState(true);
     const [messages, setMessages] = useState([
         { text: "Welcome to my portfolio! 👋", isBot: true },
     ]);
@@ -64,8 +65,40 @@ const Chatbot = () => {
     ];
 
     return (
-        <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-auto">
+        <div className="fixed bottom-5 right-5 z-[120] flex flex-col items-end pointer-events-auto">
             <AnimatePresence>
+                {/* Welcome Modal */}
+                {showWelcome && !isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20, scale: 0.9, x: 20 }}
+                        animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
+                        exit={{ opacity: 0, scale: 0.8, x: 20 }}
+                        className="mb-4 mr-2 max-w-[280px] bg-white text-black p-5 rounded-3xl rounded-br-none shadow-2xl relative border-2 border-blue-500/20 backdrop-blur-xl"
+                    >
+                        <button
+                            onClick={() => setShowWelcome(false)}
+                            className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full text-[10px] flex items-center justify-center shadow-lg border-2 border-white"
+                        >✕</button>
+                        <div className="flex items-start gap-3">
+                            <div className="w-10 h-10 shrink-0 rounded-full border-2 border-blue-500 overflow-hidden shadow-md">
+                                <img src="/assets/my_image.jpeg" className="w-full h-full object-cover" alt="Thomas" />
+                            </div>
+                            <div className="space-y-2">
+                                <p className="text-xs font-bold text-blue-600 uppercase tracking-widest">Thomas' Bot</p>
+                                <p className="text-sm font-medium leading-relaxed">
+                                    Hello! How are you doing today? Thanks for checking my portfolio. Feel free to message for any difficulties, and also check out the <span className="text-blue-600 font-bold underline">CLI interface</span> above!
+                                </p>
+                                <button
+                                    onClick={() => { setShowWelcome(false); setIsOpen(true); }}
+                                    className="w-full py-2 bg-blue-600 text-white rounded-xl text-xs font-black uppercase tracking-tighter hover:bg-blue-700 transition-colors"
+                                >
+                                    Chat Now
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -107,8 +140,8 @@ const Chatbot = () => {
                                 >
                                     <div
                                         className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.isBot
-                                                ? 'bg-[#2d2d44] text-white rounded-tl-none'
-                                                : 'bg-blue-600 text-white rounded-tr-none'
+                                            ? 'bg-[#2d2d44] text-white rounded-tl-none'
+                                            : 'bg-blue-600 text-white rounded-tr-none'
                                             }`}
                                     >
                                         {msg.text}
@@ -148,7 +181,7 @@ const Chatbot = () => {
             <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => { setIsOpen(!isOpen); setShowWelcome(false); }}
                 className="w-14 h-14 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg border-2 border-white/20 overflow-hidden relative group"
             >
                 {!isOpen ? (
