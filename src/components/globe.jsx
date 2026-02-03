@@ -37,8 +37,8 @@ const GLOBE_CONFIG = {
 };
 
 export function Globe({ className, config = GLOBE_CONFIG }) {
-  let phi = 0;
-  let width = 0;
+  const phi = useRef(0);
+  const width = useRef(0);
   const canvasRef = useRef(null);
   const pointerInteracting = useRef(null);
   const pointerInteractionMovement = useRef(0);
@@ -66,70 +66,64 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
   };
 
   useEffect(() => {
-    // Early return if canvas is not mounted yet
-    if (!canvasRef.current) {
-      return;
-    }
+    let globe;
+    if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
 
+    // Get initial width
+    let currentWidth = canvas.offsetWidth;
+    if (currentWidth === 0) currentWidth = 500;
+
+    try {
+      globe = createGlobe(canvas, {
+        ...config,
+        width: currentWidth * 2,
+        height: currentWidth * 2,
+        onRender: (state) => {
+          if (!pointerInteracting.current) {
+            phi.current += 0.005;
+          }
+          state.phi = phi.current + rs.get();
+        },
+      });
+
+      // Simple delay to ensure smooth entry
+      requestAnimationFrame(() => {
+        if (canvasRef.current) {
+          canvasRef.current.style.opacity = "1";
+        }
+      });
+    } catch (e) {
+      console.error("Cobe initialization failed", e);
+    }
+
     const onResize = () => {
-      if (canvas && canvas.offsetWidth > 0) {
-        width = canvas.offsetWidth;
+      if (canvasRef.current) {
+        // We don't necessarily need to re-create the globe on every resize
+        // But we should update the width if needed. 
+        // For simplicity, we can let CSS handle the display scaling.
       }
     };
 
     window.addEventListener("resize", onResize);
-    onResize();
-
-    // Ensure we have valid dimensions before creating the globe
-    if (width === 0) {
-      width = 600; // Fallback width
-    }
-
-    let globe;
-    try {
-      globe = createGlobe(canvas, {
-        ...config,
-        width: width * 2,
-        height: width * 2,
-        onRender: (state) => {
-          if (!pointerInteracting.current) phi += 0.005;
-          state.phi = phi + rs.get();
-          state.width = width * 2;
-          state.height = width * 2;
-        },
-      });
-
-      setTimeout(() => {
-        if (canvasRef.current) {
-          canvasRef.current.style.opacity = "1";
-        }
-      }, 0);
-    } catch (error) {
-      console.error("Failed to create globe:", error);
-    }
-
     return () => {
-      if (globe) {
-        globe.destroy();
-      }
+      if (globe) globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, [rs, config]);
+  }, [config, rs]);
 
   return (
     <div
       className={twMerge(
-        "mx-auto aspect-[1/1] w-full max-w-[600px]",
+        "mx-auto aspect-square w-full max-w-[600px] flex items-center justify-center",
         className
       )}
     >
       <canvas
-        className={twMerge(
-          "size-[30rem] opacity-0 transition-opacity duration-500 [contain:layout_paint_size]"
-        )}
+        className="w-full h-full opacity-0 transition-opacity duration-1000"
         ref={canvasRef}
+        style={{ maxWidth: '100%', aspectRatio: '1/1' }}
         onPointerDown={(e) => {
           pointerInteracting.current = e.clientX;
           updatePointerInteraction(e.clientX);
