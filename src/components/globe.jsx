@@ -11,13 +11,13 @@ const MOVEMENT_DAMPING = 1400;
 const GLOBE_CONFIG = {
   width: 800,
   height: 800,
-  onRender: () => {},
-  devicePixelRatio: 2,
+  onRender: () => { },
+  devicePixelRatio: 1,
   phi: 0,
   theta: 0.3,
   dark: 1,
   diffuse: 0.4,
-  mapSamples: 16000,
+  mapSamples: 8000,
   mapBrightness: 1.2,
   baseColor: [1, 1, 1],
   markerColor: [1, 1, 1],
@@ -66,30 +66,54 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
   };
 
   useEffect(() => {
+    // Early return if canvas is not mounted yet
+    if (!canvasRef.current) {
+      return;
+    }
+
+    const canvas = canvasRef.current;
+
     const onResize = () => {
-      if (canvasRef.current) {
-        width = canvasRef.current.offsetWidth;
+      if (canvas && canvas.offsetWidth > 0) {
+        width = canvas.offsetWidth;
       }
     };
 
     window.addEventListener("resize", onResize);
     onResize();
 
-    const globe = createGlobe(canvasRef.current, {
-      ...config,
-      width: width * 2,
-      height: width * 2,
-      onRender: (state) => {
-        if (!pointerInteracting.current) phi += 0.005;
-        state.phi = phi + rs.get();
-        state.width = width * 2;
-        state.height = width * 2;
-      },
-    });
+    // Ensure we have valid dimensions before creating the globe
+    if (width === 0) {
+      width = 600; // Fallback width
+    }
 
-    setTimeout(() => (canvasRef.current.style.opacity = "1"), 0);
+    let globe;
+    try {
+      globe = createGlobe(canvas, {
+        ...config,
+        width: width * 2,
+        height: width * 2,
+        onRender: (state) => {
+          if (!pointerInteracting.current) phi += 0.005;
+          state.phi = phi + rs.get();
+          state.width = width * 2;
+          state.height = width * 2;
+        },
+      });
+
+      setTimeout(() => {
+        if (canvasRef.current) {
+          canvasRef.current.style.opacity = "1";
+        }
+      }, 0);
+    } catch (error) {
+      console.error("Failed to create globe:", error);
+    }
+
     return () => {
-      globe.destroy();
+      if (globe) {
+        globe.destroy();
+      }
       window.removeEventListener("resize", onResize);
     };
   }, [rs, config]);

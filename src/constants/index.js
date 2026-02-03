@@ -40,7 +40,7 @@ export const myProjects = [
       { id: 4, name: "Firestore", path: "/assets/logos/firestore.svg" },
     ],
   },
- 
+
 ];
 
 
@@ -68,13 +68,10 @@ export const experiences = [
     job: "Beginner Front End",
     date: "2024-2025",
     contents: [
-      "Started Learning front-end development with a focus on HTML, CSS, and JavaScript.",
-      "Built responsive web pages and interactive user interfaces using modern frameworks.",
-      "Gained experience in version control systems like Git and collaborative development practices.",
-      "Developed a personal portfolio to showcase skills and projects.",
-      "Built a user-friendly resume builder application using React, Vite, and Tailwind CSS.",
-      "Implemented features like real-time preview, customizable templates, and downloadable PDFs.",
-      "Utilized React hooks for state management and form handling, ensuring a smooth user experience.",
+      "Focused on HTML, CSS, JavaScript basics.",
+      "Built responsive UIs with modern frameworks.",
+      "Learned Git and collaborative workflows.",
+      "Developed personal portfolio and resume builder.",
     ],
   },
   {
@@ -82,13 +79,11 @@ export const experiences = [
     job: "Project-Based Experience",
     date: "2025-Present",
     contents: [
-      "Developed multiple full-stack web applications using React.js and Firebase.",
-      "Built the Campus Connect App — a college event management platform with registration, search, and animations.",
-      "Created Hudson Furnishings, a scalable e-commerce furniture shop with authentication, Firestore integration, and responsive design.",
-      "Designed and deployed an interactive developer portfolio using React, GSAP, and Framer Motion.",
-      "Implemented clean, reusable components and state management with React hooks.",
-      "Used Tailwind CSS and Framer Motion to deliver visually appealing, responsive, and smooth UI animations.",
-      "Deployed projects on Firebase and Vercel with optimized build pipelines and SEO-friendly structures.",
+      "Built 'Campus Connect' event platform.",
+      "Created scalable furniture e-commerce site.",
+      "Developed interactive portfolio with Framer Motion.",
+      "Used React hooks for state management.",
+      "Optimized deployments on Vercel & Firebase.",
     ],
   },
   {
@@ -96,11 +91,10 @@ export const experiences = [
     job: "Freelance",
     date: "2025-Present",
     contents: [
-      "Designed user interfaces and experiences for various web applications, focusing on usability and aesthetics.",
-      "Conducted user research and usability testing to inform design decisions.",
-      "Created wireframes, prototypes, and high-fidelity designs using tools like Figma and Adobe XD.",
-      "Collaborated with developers to ensure design feasibility and implementation.",
-      "Created an ecommerce site design using Figma, focusing on user experience and visual appeal.",
+      "Designed web apps focusing on usability.",
+      "Conducted research and usability testing.",
+      "Created wireframes/prototypes in Figma/XD.",
+      "Collaborated on design implementation.",
     ],
   },
   {
@@ -108,10 +102,9 @@ export const experiences = [
     job: "Learning",
     date: "2025-Present",
     contents: [
-      "Developed and optimized SQL databases for various applications, ensuring data integrity and performance.",
-      "Designed database schemas, wrote complex queries, and implemented stored procedures.",
-      "Worked with clients to understand their data requirements and provide tailored solutions.",
-      "Utilized tools like SQL Server Management Studio and MySQL Workbench for database management.",
+      "Optimized SQL schemas and queries.",
+      "Designed complex database relationships.",
+      "Used SSMS and MySQL Workbench.",
     ],
   },
   {
@@ -119,10 +112,9 @@ export const experiences = [
     job: "Learning",
     date: "2025-Present",
     contents: [
-      "Exploring NoSQL concepts and MongoDB data modeling for flexible schema design.",
-      "Learning CRUD operations, aggregation pipelines, and indexing for efficient queries.",
-      "Integrated MongoDB with Node.js and React in small practice projects.",
-      "Experimented with Mongoose for schema validation and document management.",
+      "Exploring NoSQL schema design.",
+      "Learning CRUD and aggregation pipelines.",
+      "Integrated MongoDB with Node.js/React.",
     ],
   },
   {
@@ -130,11 +122,9 @@ export const experiences = [
     job: "Learning",
     date: "2025-Present",
     contents: [
-      "Learning Java fundamentals and Object-Oriented Programming concepts.",
-      "Building backend REST APIs using Spring Boot and Maven.",
-      "Understanding dependency injection, MVC pattern, and data persistence with Spring Data JPA.",
-      "Experimenting with connecting Spring Boot apps to SQL and MongoDB databases.",
-      "Practicing version control and modular code design following Java conventions.",
+      "Learning Java OOP and Spring Boot.",
+      "Building REST APIs with Spring Data JPA.",
+      "Connecting apps to SQL/MongoDB databases.",
     ],
   },
   {
@@ -142,10 +132,9 @@ export const experiences = [
     job: "Learning",
     date: "2025-Present",
     contents: [
-      "Learning low-level programming and understanding memory management concepts.",
-      "Practicing control structures, pointers, arrays, and string manipulation in C.",
-      "Writing small system-based programs to understand logic and optimization.",
-      "Exploring how C forms the foundation for higher-level programming languages and operating systems.",
+      "Learning low-level memory management.",
+      "Practicing pointers and data structures.",
+      "Understanding system-level programming.",
     ],
   },
 ];
@@ -161,7 +150,7 @@ export const reviews = [
     name: "Michael",
     username: "@michael",
     body: "This is the best thing I've ever seen. I'm blown away by the quality.",
-   
+
     img: "https://robohash.org/jill",
   },
   {

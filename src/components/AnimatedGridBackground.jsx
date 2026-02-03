@@ -44,15 +44,15 @@ const ScrollGridBackground = () => {
 
       this.oscillation += this.oscillationSpeed * dt;
       this.angle += this.spin * dt;
-      
+
       // Dynamic alpha based on multiple factors
-      this.alpha = this.originalAlpha * this.life * 
+      this.alpha = this.originalAlpha * this.life *
         (0.8 + 0.2 * Math.sin(this.oscillation));
 
       // Enhanced scroll parallax with velocity
       const scrollFactor = 0.00015 * (this.r * 0.6 + 0.4);
       const velocityFactor = scrollVelocity * 0.0001;
-      
+
       // Mouse interaction
       let mouseInfluence = 0;
       if (mouse.active) {
@@ -98,7 +98,7 @@ const ScrollGridBackground = () => {
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.rotate(this.angle);
-      
+
       if (this.type === 'SPARKLE') {
         // Sparkle effect with star shape
         ctx.fillStyle = `rgba(${this.color.join(',')}, ${this.alpha})`;
@@ -118,13 +118,13 @@ const ScrollGridBackground = () => {
         const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.r);
         gradient.addColorStop(0, `rgba(${this.color.join(',')}, ${this.alpha})`);
         gradient.addColorStop(1, `rgba(${this.color.join(',')}, 0)`);
-        
+
         ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(0, 0, this.r, 0, Math.PI * 2);
         ctx.fill();
       }
-      
+
       ctx.restore();
     }
   }
@@ -132,22 +132,22 @@ const ScrollGridBackground = () => {
   const initParticles = useCallback((count, width, height) => {
     const particles = [];
     const ratios = { DUST: 0.7, SPARKLE: 0.2, ENERGY: 0.1 };
-    
+
     Object.entries(ratios).forEach(([type, ratio]) => {
       const typeCount = Math.floor(count * ratio);
       for (let i = 0; i < typeCount; i++) {
         particles.push(new Particle(width, height, type));
       }
     });
-    
+
     particlesRef.current = particles;
   }, [particleTypes]);
 
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
-    const dpr = Math.max(1.5, window.devicePixelRatio || 1);
+
+    const dpr = Math.min(1.5, window.devicePixelRatio || 1);
     const width = canvas.clientWidth || window.innerWidth;
     const height = canvas.clientHeight || window.innerHeight;
     
@@ -158,7 +158,8 @@ const ScrollGridBackground = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       contextRef.current = ctx;
       
-      const particleCount = Math.min(400, Math.max(60, Math.round((width * height) / 4000)));
+      // Reduced particle count for better performance
+      const particleCount = Math.min(200, Math.max(40, Math.round((width * height) / 9000)));
       initParticles(particleCount, width, height);
     }
   }, [initParticles]);
@@ -170,14 +171,14 @@ const ScrollGridBackground = () => {
 
     // Dynamic gradient overlay
     const gradient = ctx.createLinearGradient(
-      0, 0, 
-      width * Math.sin(time * 0.0001), 
+      0, 0,
+      width * Math.sin(time * 0.0001),
       height * Math.cos(time * 0.0001)
     );
-  gradient.addColorStop(0, 'rgba(40, 54, 120, 0.12)');
-  gradient.addColorStop(0.5, 'rgba(25, 60, 120, 0.08)');
-  gradient.addColorStop(1, 'rgba(20, 10, 30, 0.06)');
-    
+    gradient.addColorStop(0, 'rgba(40, 54, 120, 0.12)');
+    gradient.addColorStop(0.5, 'rgba(25, 60, 120, 0.08)');
+    gradient.addColorStop(1, 'rgba(20, 10, 30, 0.06)');
+
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
 
@@ -188,11 +189,11 @@ const ScrollGridBackground = () => {
       const x = width * (0.2 + i * 0.3);
       const y = height * (0.3 + Math.sin(time * 0.0005 + i) * 0.1);
       const radius = 80 + pulse * 40;
-      
+
       const orbGradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-  orbGradient.addColorStop(0, `rgba(120, 180, 255, ${0.06 * pulse})`);
-  orbGradient.addColorStop(1, 'rgba(120, 180, 255, 0)');
-      
+      orbGradient.addColorStop(0, `rgba(120, 180, 255, ${0.06 * pulse})`);
+      orbGradient.addColorStop(1, 'rgba(120, 180, 255, 0)');
+
       ctx.fillStyle = orbGradient;
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -224,7 +225,7 @@ const ScrollGridBackground = () => {
     const now = performance.now();
     const currentScroll = window.scrollY || window.pageYOffset || 0;
     const deltaTime = now - scrollRef.current.lastTime;
-    
+
     if (deltaTime > 0) {
       scrollRef.current.velocity = (currentScroll - scrollRef.current.y) / deltaTime;
       scrollRef.current.y = currentScroll;
@@ -234,36 +235,36 @@ const ScrollGridBackground = () => {
 
   const updateParticles = useCallback((dt, width, height) => {
     const aliveParticles = [];
-    
+
     for (const particle of particlesRef.current) {
       if (particle.update(dt, scrollRef.current.y, scrollRef.current.velocity, width, height, mouseRef.current)) {
         aliveParticles.push(particle);
       }
     }
-    
+
     // Replenish particles
     const targetCount = Math.min(400, Math.max(60, Math.round((width * height) / 4000)));
     while (aliveParticles.length < targetCount) {
-      aliveParticles.push(new Particle(width, height, 
+      aliveParticles.push(new Particle(width, height,
         Math.random() < 0.7 ? 'DUST' : Math.random() < 0.5 ? 'SPARKLE' : 'ENERGY'));
     }
-    
+
     particlesRef.current = aliveParticles;
   }, []);
 
   const animationLoop = useCallback((time) => {
     timeRef.current = time;
     const dt = Math.min(40, time - (timeRef.current || time));
-    
+
     updateScroll();
-    
+
     const canvas = canvasRef.current;
     if (canvas && contextRef.current) {
       const ctx = contextRef.current;
       const width = canvas.clientWidth || window.innerWidth;
       const height = canvas.clientHeight || window.innerHeight;
-      
-  drawBackground(ctx, width, height, time);
+
+      drawBackground(ctx, width, height, time);
       // draw stars (twinkling)
       if (starsRef.current && starsRef.current.length) {
         ctx.save();
@@ -277,7 +278,7 @@ const ScrollGridBackground = () => {
         ctx.restore();
       }
       updateParticles(dt, width, height);
-      
+
       // Draw particles
       ctx.save();
       for (const particle of particlesRef.current) {
@@ -321,7 +322,7 @@ const ScrollGridBackground = () => {
         ctx.restore();
       }
     }
-    
+
     rafRef.current = requestAnimationFrame(animationLoop);
   }, [updateScroll, updateParticles, drawBackground]);
 
@@ -431,7 +432,7 @@ const ScrollGridBackground = () => {
       <div aria-hidden="true" className="absolute inset-0 bg-noise-vignette" />
 
       {/* Enhanced styles */}
-      <style jsx>{`
+      <style>{`
         .bg-gradient-orb {
           background: 
             radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
