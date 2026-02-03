@@ -41,18 +41,18 @@ const Hero = () => {
     <section className="relative flex items-center justify-center min-h-screen overflow-hidden">
       {/* Background gradient for blur effect to work against */}
       <div className="absolute inset-0 " />
-      
+
       {/* Main Container */}
-      <motion.div 
+      <motion.div
         className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 c-space"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh] py-8">
-          
+
           {/* Text Column - Better Alignment */}
-          <motion.div 
+          <motion.div
             className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8"
             variants={itemVariants}
           >
@@ -73,7 +73,7 @@ const Hero = () => {
           </motion.div>
 
           {/* Profile Image Column - Better Centering */}
-          <motion.div 
+          <motion.div
             className="flex justify-center lg:justify-end items-center"
             variants={itemVariants}
             transition={{ delay: 0.3 }}
@@ -81,19 +81,19 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ 
-                duration: 0.8, 
-                type: "spring", 
+              transition={{
+                duration: 0.8,
+                type: "spring",
                 stiffness: 100,
-                damping: 20 
+                damping: 20
               }}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.03,
-                transition: { 
+                transition: {
                   duration: 0.3,
                   type: "spring",
-                  stiffness: 400 
-                } 
+                  stiffness: 400
+                }
               }}
               onHoverStart={handleHoverStart}
               onHoverEnd={handleHoverEnd}
@@ -125,7 +125,7 @@ const Hero = () => {
                 style={{ willChange: "transform" }}
               >
                 <img
-                  src="/assets/me.jpg"
+                  src="/assets/my_image.jpeg"
                   alt="Abas Thomas"
                   className="w-44 h-44 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full border-4 border-white/20 shadow-2xl object-cover relative z-10 transform-gpu"
                   loading="eager"
@@ -139,10 +139,10 @@ const Hero = () => {
                     scale: isImageHovered ? 1.05 : 1,
                   }}
                   transition={{
-                    rotate: { 
-                      duration: 25, 
-                      repeat: Infinity, 
-                      ease: "linear" 
+                    rotate: {
+                      duration: 25,
+                      repeat: Infinity,
+                      ease: "linear"
                     },
                     scale: { duration: 0.4 },
                   }}
@@ -155,10 +155,10 @@ const Hero = () => {
                     scale: isImageHovered ? 1.05 : 1,
                   }}
                   transition={{
-                    rotate: { 
-                      duration: 20, 
-                      repeat: Infinity, 
-                      ease: "linear" 
+                    rotate: {
+                      duration: 20,
+                      repeat: Infinity,
+                      ease: "linear"
                     },
                     scale: { duration: 0.4 },
                   }}
@@ -174,10 +174,10 @@ const Hero = () => {
                   scale: isImageHovered ? 1.05 : 1,
                 }}
                 transition={{
-                  rotate: { 
-                    duration: 12, 
-                    repeat: Infinity, 
-                    ease: "linear" 
+                  rotate: {
+                    duration: 12,
+                    repeat: Infinity,
+                    ease: "linear"
                   },
                   scale: { duration: 0.4 },
                 }}
@@ -204,20 +204,20 @@ const Hero = () => {
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{ 
-            duration: 2, 
+          transition={{
+            duration: 2,
             repeat: Infinity,
-            ease: "easeInOut" 
+            ease: "easeInOut"
           }}
           className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center transform-gpu"
           style={{ willChange: "transform" }}
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
-            transition={{ 
-              duration: 2, 
+            transition={{
+              duration: 2,
               repeat: Infinity,
-              ease: "easeInOut" 
+              ease: "easeInOut"
             }}
             className="w-1 h-3 bg-white/60 rounded-full mt-2 transform-gpu"
             style={{ willChange: "transform" }}

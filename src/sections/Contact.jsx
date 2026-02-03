@@ -1,7 +1,7 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import Alert from "../components/Alert";
-import { Particles } from "../components/Particles";
+// import { Particles } from "../components/Particles";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa"; // 👈 icons
 
 const Contact = () => {
@@ -58,13 +58,7 @@ const Contact = () => {
 
   return (
     <section className="relative flex items-center c-space section-spacing">
-      <Particles
-        className="absolute inset-0 -z-50"
-        quantity={100}
-        ease={80}
-        color={"#ffffff"}
-        refresh
-      />
+      <div className="absolute inset-0 -z-50 bg-gradient-to-b from-black via-[#101010] to-black opacity-80" />
 
       {showAlert && <Alert type={alertType} text={alertMessage} />}
 

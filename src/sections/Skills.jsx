@@ -1,17 +1,25 @@
 import React from "react";
 import { motion } from "motion/react";
+import { FaReact, FaJs, FaNodeJs, FaJava, FaAngular } from "react-icons/fa";
+import { SiTailwindcss, SiTypescript, SiNestjs, SiNextdotjs, SiFramer, SiGit, SiFigma, SiThreedotjs } from "react-icons/si";
+import { DiC, DiCsharp } from "react-icons/di";
 
 const skills = [
-    { name: "React", level: "Advanced", color: "#61DAFB" },
-    { name: "JavaScript", level: "Advanced", color: "#F7DF1E" },
-    { name: "Tailwind CSS", level: "Advanced", color: "#38B2AC" },
-    { name: "Node.js", level: "Intermediate", color: "#339933" },
-    { name: "Three.js", level: "Intermediate", color: "#000000" },
-    { name: "Framer Motion", level: "Advanced", color: "#0055FF" },
-    { name: "Next.js", level: "Intermediate", color: "#000000" },
-    { name: "TypeScript", level: "Intermediate", color: "#3178C6" },
-    { name: "Git", level: "Advanced", color: "#F05032" },
-    { name: "Figma", level: "Intermediate", color: "#F24E1E" },
+    { name: "React", level: "Advanced", color: "#61DAFB", icon: <FaReact /> },
+    { name: "JavaScript", level: "Advanced", color: "#F7DF1E", icon: <FaJs /> },
+    { name: "Tailwind CSS", level: "Advanced", color: "#38B2AC", icon: <SiTailwindcss /> },
+    { name: "Node.js", level: "Intermediate", color: "#339933", icon: <FaNodeJs /> },
+    { name: "Java", level: "Intermediate", color: "#007396", icon: <FaJava /> },
+    { name: "Angular", level: "Intermediate", color: "#DD0031", icon: <FaAngular /> },
+    { name: "NestJS", level: "Intermediate", color: "#E0234E", icon: <SiNestjs /> },
+    { name: "C", level: "Intermediate", color: "#A8B9CC", icon: <DiC /> },
+    { name: "C#", level: "Intermediate", color: "#239120", icon: <DiCsharp /> },
+    { name: "Three.js", level: "Intermediate", color: "#FFFFFF", icon: <SiThreedotjs /> },
+    // { name: "Framer Motion", level: "Advanced", color: "#0055FF", icon: <SiFramer /> },
+    { name: "Next.js", level: "Intermediate", color: "#FFFFFF", icon: <SiNextdotjs /> },
+    { name: "TypeScript", level: "Intermediate", color: "#3178C6", icon: <SiTypescript /> },
+    { name: "Git", level: "Advanced", color: "#F05032", icon: <SiGit /> },
+    // { name: "Figma", level: "Intermediate", color: "#F24E1E", icon: <SiFigma /> },
 ];
 
 const Skills = () => {
@@ -33,10 +41,10 @@ const Skills = () => {
                         className="flex flex-col items-center justify-center p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm cursor-pointer group"
                     >
                         <div
-                            className="w-16 h-16 rounded-full flex items-center justify-center mb-4 text-2xl font-bold bg-white/10 group-hover:bg-white/20 transition-colors"
+                            className="w-16 h-16 rounded-full flex items-center justify-center mb-4 text-4xl bg-white/10 group-hover:bg-white/20 transition-colors"
                             style={{ color: skill.color }}
                         >
-                            {skill.name[0]}
+                            {skill.icon}
                         </div>
                         <h4 className="text-xl font-semibold mb-2">{skill.name}</h4>
                         <p className="text-sm text-gray-400">{skill.level}</p>
