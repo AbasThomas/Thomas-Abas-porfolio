@@ -3,16 +3,16 @@ import { motion } from "motion/react";
 
 const HeroText = () => {
   const words = ["Secure", "Modern", "Scalable"];
-  
+
   // Optimized variants with will-change and hardware acceleration
   const variants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       x: -50,
       willChange: "transform, opacity"
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       transition: {
         type: "spring",
@@ -35,10 +35,10 @@ const HeroText = () => {
         >
           Hi I'm Thomas
         </motion.h1>
-        
-        <div className="flex flex-col items-start space-y-1">
+
+        <div className="flex flex-col items-start space-y-2">
           <motion.p
-            className="text-4xl fonn text-neutral-300"
+            className="text-4xl font-black text-neutral-300"
             variants={variants}
             initial="hidden"
             animate="visible"
@@ -46,13 +46,13 @@ const HeroText = () => {
           >
             A Developer <br /> Dedicated to Crafting
           </motion.p>
-          
+
           <motion.div
             variants={variants}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="transform-gpu -mt-2"
+            className="transform-gpu -mt-1"
           >
             <FlipWords
               words={words}
@@ -60,9 +60,9 @@ const HeroText = () => {
               duration={2000}
             />
           </motion.div>
-          
+
           <motion.p
-            className="text-4xl font-medium text-neutral-300 -mt-4"
+            className="text-4xl font-medium text-neutral-300 -mt-1"
             variants={variants}
             initial="hidden"
             animate="visible"
@@ -72,7 +72,7 @@ const HeroText = () => {
           </motion.p>
         </div>
       </div>
-      
+
       {/* Mobile View */}
       <div className="flex flex-col space-y-4 md:hidden">
         <motion.p
@@ -84,8 +84,8 @@ const HeroText = () => {
         >
           Hi, I'm Thomas
         </motion.p>
-        
-        <div className="space-y-1">
+
+        <div className="space-y-2">
           <motion.p
             className="text-5xl font-black text-neutral-300"
             variants={variants}
@@ -95,13 +95,13 @@ const HeroText = () => {
           >
             Building
           </motion.p>
-          
+
           <motion.div
             variants={variants}
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="transform-gpu -mt-2"
+            className="transform-gpu -mt-1"
           >
             <FlipWords
               words={words}
@@ -109,9 +109,9 @@ const HeroText = () => {
               duration={2000}
             />
           </motion.div>
-          
+
           <motion.p
-            className="text-4xl font-black text-neutral-300 -mt-3"
+            className="text-4xl font-black text-neutral-300 -mt-1"
             variants={variants}
             initial="hidden"
             animate="visible"

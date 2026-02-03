@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { FiArrowUpRight, FiGithub } from "react-icons/fi";
 
 const Project = ({
   title,
@@ -8,115 +9,125 @@ const Project = ({
   href,
   image,
   tags,
+  index
 }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const cardRef = useRef(null);
+
+  // Parallax / 3D Tilt Logic
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
+
+  const handleMouseMove = (event) => {
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  const isEven = index % 2 === 0;
 
   return (
     <div
-      className="perspective-[2000px] w-[310px] md:w-[410px] h-[490px] cursor-pointer group shrink-0 transform-gpu"
-      onClick={() => setIsFlipped(!isFlipped)}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`relative flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center group`}
     >
+      {/* 3D Image Container */}
       <motion.div
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ type: "spring", stiffness: 120, damping: 20 }}
-        className="relative w-full h-full"
-        style={{ transformStyle: "preserve-3d" }}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        className="relative w-full lg:w-3/5 aspect-[16/10] rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl"
       >
-        {/* Front Side - TRANSPARENT SHINY GLASS */}
-        <div
-          className="absolute inset-0 w-full h-full rounded-[2rem] border border-white/20 bg-white/[0.03] backdrop-blur-xl overflow-hidden shadow-2xl flex flex-col group-hover:border-blue-500/40 transition-colors duration-500"
-          style={{ backfaceVisibility: "hidden" }}
+        <motion.div
+          style={{ transform: "translateZ(50px)" }}
+          className="absolute inset-4 rounded-[2rem] overflow-hidden border border-white/10"
         >
-          {/* Subtle Shine */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#02030d] via-transparent to-transparent opacity-60" />
+        </motion.div>
 
-          <div className="relative w-full h-[50%] overflow-hidden p-4">
-            <div className="w-full h-full rounded-[1.25rem] overflow-hidden grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700">
-              <img
-                src={image}
-                alt={title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
+        {/* Floating Tag Overlay */}
+        <div
+          style={{ transform: "translateZ(80px)" }}
+          className="absolute bottom-10 right-10 flex gap-2"
+        >
+          {tags.slice(0, 2).map((tag, i) => (
+            <div key={i} className="px-4 py-2 bg-black/50 backdrop-blur-xl border border-white/10 rounded-xl flex items-center gap-2">
+              <img src={tag.path} alt={tag.name} className="w-4 h-4" />
+              <span className="text-[10px] font-black text-white uppercase tracking-widest">{tag.name}</span>
             </div>
-          </div>
-
-          <div className="p-6 md:p-8 flex flex-col justify-between flex-1 relative z-10">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
-                  <span className="text-blue-400 font-black text-xs">{title.charAt(0)}</span>
-                </div>
-                <h3 className="text-xl md:text-2xl font-black text-white/95 tracking-tight">{title}</h3>
-              </div>
-              <p className="text-xs md:text-sm text-gray-400 leading-relaxed line-clamp-2 mb-6 lowercase font-medium">
-                {description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {tags.slice(0, 3).map((tag) => (
-                  <div key={tag.id} className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-3 py-1 rounded-full backdrop-blur-md">
-                    <img src={tag.path} alt={tag.name} className="w-3 h-3" />
-                    <span className="text-[9px] font-bold text-gray-300 uppercase tracking-widest">{tag.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-white/30 text-[9px] font-black uppercase tracking-[0.2em] mt-auto pt-6 border-t border-white/5 group-hover:text-blue-400 transition-colors">
-              <span>View details</span>
-              <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-blue-500/50 group-hover:bg-blue-500/10 transition-all">
-                <span className="text-lg">→</span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
+      </motion.div>
 
-        {/* Back Side - TRANSPARENT GLASS */}
-        <div
-          className="absolute inset-0 w-full h-full rounded-[2rem] border border-white/20 bg-white/[0.07] backdrop-blur-2xl p-8 md:p-10 flex flex-col justify-between shadow-2xl"
-          style={{
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            transformStyle: "preserve-3d",
-          }}
+      {/* Info Column */}
+      <div className={`w-full lg:w-2/5 flex flex-col ${isEven ? 'items-start' : 'items-start lg:items-end lg:text-right'}`}>
+        <motion.div
+          initial={{ opacity: 0, x: isEven ? -20 : 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          className="space-y-6"
         >
-          <div className="space-y-6">
-            <h3 className="text-2xl md:text-3xl font-black text-white">{title}</h3>
-            <div className="w-12 h-1 bg-blue-600 rounded-full" />
-            <div className="space-y-4">
-              {subDescription.slice(0, 4).map((item, idx) => (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  key={idx}
-                  className="flex items-start gap-3"
-                >
-                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
-                  <p className="text-xs text-white/70 leading-relaxed font-normal">{item}</p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-blue-500 font-black text-xs uppercase tracking-[0.3em]">Project {index + 1}</span>
+            <h3 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">
+              {title}<span className="text-blue-600">.</span>
+            </h3>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <p className="text-gray-400 text-lg font-medium leading-relaxed max-w-md">
+            {description}
+          </p>
+
+          <div className={`flex flex-wrap gap-3 ${isEven ? '' : 'lg:justify-end'}`}>
+            {tags.map((tag, i) => (
+              <span key={i} className="text-[9px] font-black text-white/30 uppercase tracking-[0.2em] border border-white/5 px-3 py-1 rounded-lg">
+                {tag.name}
+              </span>
+            ))}
+          </div>
+
+          <div className={`flex items-center gap-6 pt-4 ${isEven ? '' : 'lg:justify-end'}`}>
             <a
               href={href}
               target="_blank"
               rel="noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="w-full bg-white text-black font-black py-4 rounded-[1.25rem] text-center hover:bg-blue-600 hover:text-white transition-all duration-500 uppercase tracking-[0.2em] text-[9px]"
+              className="flex items-center gap-3 px-8 py-4 bg-white text-black font-black uppercase tracking-widest text-[10px] rounded-2xl hover:bg-blue-600 hover:text-white transition-all duration-500 hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/10"
             >
-              Launch Project
+              Live Preview <FiArrowUpRight className="text-lg" />
             </a>
-            <button
-              className="w-full py-4 border border-white/10 rounded-[1.25rem] hover:bg-white/5 transition-all text-[9px] font-black text-white/30 uppercase tracking-[0.2em]"
-              onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}
+            <a
+              href="#"
+              className="w-14 h-14 flex items-center justify-center border border-white/10 rounded-2xl text-white/40 hover:text-white hover:border-white/30 transition-all duration-500"
             >
-              Flip Back
-            </button>
+              <FiGithub className="text-xl" />
+            </a>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 };

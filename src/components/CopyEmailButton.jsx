@@ -15,45 +15,72 @@ const CopyEmailButton = () => {
   };
 
   return (
-    <motion.button
-      onClick={copyToClipboard}
-      whileTap={{ scale: 0.95 }}
-      className={`group relative w-full py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] overflow-hidden transition-all duration-300 shadow-2xl ${copied ? 'bg-green-500 text-white' : 'bg-white text-black hover:bg-white/90'
-        }`}
-    >
-      <AnimatePresence mode="wait">
-        {copied ? (
-          <motion.div
-            className="flex items-center justify-center gap-2"
-            key="copied"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-          >
-            <span className="text-lg">✓</span>
-            Email Copied
-          </motion.div>
-        ) : (
-          <motion.div
-            className="flex items-center justify-center gap-2"
-            key="copy"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-          >
-            <img src="assets/copy.svg" className="w-4 group-hover:invert transition-all" alt="copy icon" />
-            Copy Email
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className="relative w-full group/btn">
+      {/* Background Glow Effect */}
+      <div className={`absolute -inset-1 rounded-2xl blur-lg opacity-0 group-hover/btn:opacity-50 transition-all duration-500 pointer-events-none ${copied ? 'bg-green-500' : 'bg-white'}`} />
 
-      {/* Shine Streak */}
-      {!copied && (
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-      )}
-    </motion.button>
+      <motion.button
+        onClick={copyToClipboard}
+        whileTap={{ scale: 0.98 }}
+        className={`relative w-full py-4 rounded-2xl font-black uppercase tracking-[0.25em] text-[10px] flex items-center justify-center gap-3 overflow-hidden transition-all duration-500 shadow-2xl border-2 ${copied
+            ? 'bg-green-500 border-green-400 text-white'
+            : 'bg-[#02030d] border-white/10 text-white group-hover/btn:border-white/40'
+          }`}
+      >
+        {/* Animated Background on Hover (Sliding Fill) */}
+        <div className={`absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out z-0 ${copied && 'hidden'}`} />
+
+        <AnimatePresence mode="wait">
+          {copied ? (
+            <motion.div
+              className="relative z-10 flex items-center gap-2"
+              key="copied"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="text-lg leading-none"
+              >
+                ✓
+              </motion.span>
+              <span>Copied Successfully</span>
+            </motion.div>
+          ) : (
+            <motion.div
+              className="relative z-10 flex items-center gap-3 group-hover/btn:text-black transition-colors duration-500"
+              key="copy"
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 20, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <div className="relative">
+                <img src="assets/copy.svg" className="w-4 group-hover/btn:invert transition-all" alt="copy icon" />
+                {/* Double Icon Effect */}
+                <img src="assets/copy.svg" className="absolute top-0 left-0 w-4 blur-sm opacity-0 group-hover/btn:opacity-100 group-hover/btn:invert transition-all scale-125" alt="copy icon" />
+              </div>
+              <span className="font-black">Copy Email Address</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Shine streak following cursor? Or just a pulse? */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/20 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_2s_infinite] pointer-events-none" />
+      </motion.button>
+
+      {/* Bottom Label Reveal */}
+      <motion.div
+        initial={{ opacity: 0, y: 5 }}
+        whileHover={{ opacity: 1, y: 0 }}
+        className="absolute -bottom-6 left-0 w-full text-center pointer-events-none"
+      >
+        <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.5em]">{email}</span>
+      </motion.div>
+    </div>
   );
 };
 

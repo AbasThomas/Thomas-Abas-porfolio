@@ -38,7 +38,7 @@ const Hero = () => {
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative flex items-center justify-center min-h-screen overflow-hidden py-20"
+      className="relative flex items-center justify-center min-h-screen overflow-hidden pt-40 pb-20"
     >
       {/* Dynamic Interactive Spotlight */}
       {!isMobile && (
@@ -92,31 +92,12 @@ const Hero = () => {
                 <span className="relative z-10 group-hover:text-white transition-colors ml-2 inline-block">→</span>
               </a>
 
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText("your.email@example.com");
-                  alert("Email copied!");
-                }}
+              <a
+                href="#contact"
                 className="px-8 py-4 bg-white/5 border border-white/10 text-white font-black uppercase tracking-wider text-xs rounded-2xl backdrop-blur-md hover:bg-white/10 transition-all hover:border-white/20 active:scale-95"
               >
-                Copy Email
-              </button>
-            </motion.div>
-
-            {/* Micro Stats */}
-            <motion.div variants={itemVariants} className="flex items-center gap-8 pt-6 border-t border-white/5">
-              <div className="flex flex-col">
-                <span className="text-2xl font-black text-white">15+</span>
-                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Projects Built</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-2xl font-black text-white">5+</span>
-                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Tech Stack</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-2xl font-black text-white">2+</span>
-                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Years Exp</span>
-              </div>
+                Get in Touch
+              </a>
             </motion.div>
           </div>
 
