@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Resume from "./sections/Resume";
 import Process from "./sections/Process";
 import Projects from "./sections/Projects";
 import Experiences from "./sections/Experiences";
@@ -22,6 +23,7 @@ const App = () => {
         <Hero />
       </section>
       <About />
+      <Resume />
       <Process />
       <section id="projects" className="relative">
         <Projects />

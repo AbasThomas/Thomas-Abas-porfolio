@@ -2,6 +2,7 @@ import HeroText from "../components/HeroText";
 import { useMediaQuery } from "react-responsive";
 import { Suspense, useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import { resumeFilePath } from "../constants";
 
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 853 });
@@ -97,6 +98,14 @@ const Hero = () => {
                 className="px-8 py-4 bg-white/5 border border-white/10 text-white font-black uppercase tracking-wider text-xs rounded-2xl backdrop-blur-md hover:bg-white/10 transition-all hover:border-white/20 active:scale-95"
               >
                 Get in Touch
+              </a>
+
+              <a
+                href={resumeFilePath}
+                download="Thomas Abas Resume.pdf"
+                className="px-8 py-4 bg-blue-600/15 border border-blue-500/30 text-blue-200 font-black uppercase tracking-wider text-xs rounded-2xl backdrop-blur-md hover:bg-blue-600/25 hover:text-white transition-all active:scale-95"
+              >
+                Download Resume
               </a>
             </motion.div>
           </div>

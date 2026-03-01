@@ -43,7 +43,7 @@ const Skills = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter italic"
+                        className="text-4xl sm:text-5xl md:text-7xl font-black text-white uppercase tracking-tighter italic"
                     >
                         Tech Stack<span className="text-blue-500">.</span>
                     </motion.h2>
@@ -59,7 +59,7 @@ const Skills = () => {
                 </div>
 
                 {/* Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
                     {skills.map((skill, index) => (
                         <motion.div
                             key={index}
@@ -70,7 +70,7 @@ const Skills = () => {
                             whileHover={{ scale: 1.05, y: -5 }}
                             className="group relative"
                         >
-                            <div className="relative h-40 flex flex-col items-center justify-center rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-xl overflow-hidden transition-all duration-500 group-hover:border-white/20 group-hover:bg-white/[0.05]">
+                            <div className="relative h-36 sm:h-40 flex flex-col items-center justify-center rounded-[1.5rem] sm:rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-xl overflow-hidden transition-all duration-500 group-hover:border-white/20 group-hover:bg-white/[0.05]">
                                 {/* Background Glow */}
                                 <div
                                     className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
@@ -81,14 +81,14 @@ const Skills = () => {
 
                                 {/* Icon */}
                                 <div
-                                    className="text-4xl mb-4 transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                                    className="text-3xl sm:text-4xl mb-3 sm:mb-4 transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
                                     style={{ color: skill.color }}
                                 >
                                     {skill.icon}
                                 </div>
 
                                 {/* Text */}
-                                <span className="relative z-10 text-[10px] font-black uppercase tracking-[0.15em] text-white/90 text-center px-2">
+                                <span className="relative z-10 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] text-white/90 text-center px-2">
                                     {skill.name}
                                 </span>
 

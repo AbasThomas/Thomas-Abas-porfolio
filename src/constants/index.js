@@ -17,6 +17,7 @@ export const myProjects = [
       { id: 1, name: "React.js", path: "/assets/logos/react.svg" },
       { id: 2, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
       { id: 3, name: "Framer Motion", path: "/assets/logos/framer.svg" },
+      { id: 4, name: "Vercel", path: "/assets/logos/vercel.svg" },
     ],
   },
   {
@@ -25,9 +26,9 @@ export const myProjects = [
     description: "Scalable e-commerce platform with secure login, dashboard, and Firebase backend.",
     subDescription: [
       "Built with React for a seamless shopping experience.",
-      "Integrated Firebase for secure auth and real-time database.",
+      "Integrated Firebase for secure auth and real-time database (Firestore).",
       "Custom user dashboard for order tracking and management.",
-      "Fully responsive design optimized for mobile and desktop."
+      "Fully responsive design optimized for mobile and desktop.",
     ],
     href: "https://hudson-furnishings-chi.vercel.app",
     logo: "",
@@ -41,21 +42,22 @@ export const myProjects = [
   {
     id: 3,
     title: "Blox",
-    description: "AI platform for building professional portfolios and résumés in under 2 minutes.",
+    description:
+      "AI-supported professional branding system for optimized SEO portfolios, analytics, and branding tools.",
     subDescription: [
-      "One-click imports from LinkedIn, GitHub, and Figma.",
-      "AI-powered résumé & portfolio generation with SEO optimization.",
-      "Built-in publishing with custom domains and analytics.",
-      "Designed for individuals and enterprises with white-labeling."
+      "Startup project enabling fast creation of professional portfolios and résumés.",
+      "AI-powered features including skill verification, keyword analysis, and dynamic templates.",
+      "SEO optimization, performance analytics, and publishing capabilities.",
+      "Built with Java backend and NestJS microservices for scalability.",
     ],
     href: "https://bloxplatform.org/",
     logo: "",
     image: "/assets/projects/blox.png",
     tags: [
       { id: 1, name: "Next.js", path: "/assets/logos/nextjs.svg" },
-      { id: 2, name: "Spring Boot", path: "/assets/logos/springboot.svg" },
-      { id: 3, name: "AI", path: "/assets/logos/ai.svg" },
-      { id: 4, name: "PostgreSQL", path: "/assets/logos/postgresql.svg" },
+      { id: 2, name: "Java", path: "/assets/logos/java.svg" },
+      { id: 3, name: "NestJS", path: "/assets/logos/nestjs.svg" },
+      { id: 4, name: "AI", path: "/assets/logos/ai.svg" },
     ],
   },
   {
@@ -66,7 +68,7 @@ export const myProjects = [
       "Proposed a decentralized EMR system to improve healthcare data security and interoperability.",
       "Designed role-based access control for patients, doctors, and healthcare institutions.",
       "Ensured data privacy and immutability using blockchain-backed verification.",
-      "Focused on scalability and adoption within national healthcare systems."
+      "Focused on scalability and adoption within national healthcare systems.",
     ],
     href: "https://medblock-app.web.app/",
     logo: "",
@@ -77,15 +79,82 @@ export const myProjects = [
       { id: 3, name: "Security", path: "/assets/logos/security.svg" },
       { id: 4, name: "System Design", path: "/assets/logos/system-design.svg" },
     ],
-  }
+  },
+  {
+    id: 5,
+    title: "Eventping",
+    description:
+      "Event management platform (like Luma) for organizing events, meetings, reminders, and check-ins.",
+    subDescription: [
+      "Supports event creation, guest/participant management, and check-in features.",
+      "Sends automated reminders via integrations with WhatsApp, Telegram, Discord, and Gmail.",
+      "Multi-platform notification system for better attendance and engagement.",
+      "Modern, user-friendly interface for organizers and attendees.",
+    ],
+    href: "https://eventping.xyz",
+    logo: "",
+    image: "/assets/projects/eventping.png",
+    tags: [
+      { id: 1, name: "Next.js", path: "/assets/logos/nextjs.svg" },
+      { id: 2, name: "React.js", path: "/assets/logos/react.svg" },
+      { id: 3, name: "Integrations", path: "/assets/logos/api.svg" },
+      { id: 4, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
+    ],
+  },
+  {
+    id: 6,
+    title: "Talentforge",
+    description:
+      "AI-powered platform for resume scoring, applicant tracking, and one-click job postings.",
+    subDescription: [
+      "Uses AI (Hugging Face models) to analyze and score resumes with bias detection.",
+      "Streamlines hiring with applicant tracking system and video interview support.",
+      "Enables hirers to post jobs to platforms like LinkedIn and Upwork with one click.",
+      "Built with Next.js frontend and Java backend for robust performance.",
+    ],
+    href: "https://talentforge.cc",
+    logo: "",
+    image: "/assets/projects/talentforge.png",
+    tags: [
+      { id: 1, name: "Next.js", path: "/assets/logos/nextjs.svg" },
+      { id: 2, name: "Java", path: "/assets/logos/java.svg" },
+      { id: 3, name: "Hugging Face", path: "/assets/logos/huggingface.svg" },
+      { id: 4, name: "AI", path: "/assets/logos/ai.svg" },
+    ],
+  },
+  {
+    id: 7,
+    title: "Envvy",
+    description:
+      "Secure 'GitHub for envs' — manage environment variables with Git-like commands but enhanced security.",
+    subDescription: [
+      "CLI tool built with Node.js for easy env profile creation, sharing, and management.",
+      "Next.js frontend dashboard for visual control and team collaboration.",
+      "Focus on secure storage and encrypted handling of sensitive variables.",
+      "Commands similar to Git for versioning and syncing environments.",
+    ],
+    href: "https://envii.pxxl.pro/",
+    logo: "",
+    image: "/assets/projects/envvy.png",
+    tags: [
+      { id: 1, name: "Node.js", path: "/assets/logos/nodejs.svg" },
+      { id: 2, name: "Next.js", path: "/assets/logos/nextjs.svg" },
+      { id: 3, name: "CLI", path: "/assets/logos/terminal.svg" },
+      { id: 4, name: "Security", path: "/assets/logos/security.svg" },
+    ],
+  },
+
 ];
 
 export const navLinks = [
   { id: 1, name: 'Home', href: '#home' },
   { id: 2, name: 'About', href: '#about' },
   { id: 3, name: 'Projects', href: '#projects' },
-  { id: 4, name: 'Contact', href: '#contact' },
+  { id: 4, name: 'Resume', href: '#resume' },
+  { id: 5, name: 'Contact', href: '#contact' },
 ];
+
+export const resumeFilePath = "/Thomas%20Resume.pdf";
 
 export const workExperiences = [
   {

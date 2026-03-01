@@ -1,4 +1,4 @@
-import { mySocials } from "../constants";
+import { mySocials, resumeFilePath } from "../constants";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 
@@ -64,6 +64,13 @@ const Footer = () => {
 
           {/* Action Section */}
           <div className="flex flex-col items-center md:items-end gap-4">
+            <a
+              href={resumeFilePath}
+              download="Thomas Abas Resume.pdf"
+              className="flex items-center gap-3 px-6 py-3 rounded-full border border-blue-500/30 bg-blue-600/10 hover:bg-blue-600/20 transition-all"
+            >
+              <span className="text-[10px] font-black text-blue-300 uppercase tracking-widest">Download Resume</span>
+            </a>
             <button
               onClick={scrollToTop}
               className="flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-white/3 hover:bg-white/10 transition-all group"

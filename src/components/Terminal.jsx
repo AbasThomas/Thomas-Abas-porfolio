@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { resumeFilePath } from '../constants';
 
 const COMMANDS = {
     help: 'Show this help message',
@@ -143,7 +144,7 @@ const Terminal = () => {
                 break;
             case 'resume':
                 newHistory.push({ type: 'output', content: 'Opening resume.pdf... [Simulated Download]' });
-                window.open('/assets/resume.pdf', '_blank');
+                window.open(resumeFilePath, '_blank', 'noopener,noreferrer');
                 break;
             case 'matrix':
                 setIsMatrix(true);
@@ -211,7 +212,7 @@ const Terminal = () => {
             {/* Floating Toggle Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed bottom-24 right-6 z-[100] w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all group overflow-hidden"
+                className="fixed bottom-3 left-3 sm:bottom-24 sm:left-auto sm:right-6 z-[100] w-12 h-12 sm:w-14 sm:h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all group overflow-hidden"
             >
                 <span className="relative z-10 font-mono font-bold">{isOpen ? '❌' : '>_'}</span>
                 <div className="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 transition-transform rounded-full" />
@@ -223,18 +224,20 @@ const Terminal = () => {
                         initial={{ opacity: 0, y: 100, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 100, scale: 0.95 }}
-                        className="fixed inset-0 md:inset-10 z-[90] flex flex-col bg-black/95 text-green-400 font-mono rounded-none md:rounded-2xl border border-green-500/30 overflow-hidden shadow-2xl backdrop-blur-xl"
+                        className="fixed inset-x-2 inset-y-3 md:inset-10 z-[90] flex flex-col bg-black/95 text-green-400 text-xs sm:text-sm font-mono rounded-2xl border border-green-500/30 overflow-hidden shadow-2xl backdrop-blur-xl"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Window Header */}
-                        <div className="flex items-center justify-between px-4 py-3 bg-white/5 border-b border-green-500/20">
+                        <div className="flex items-center justify-between gap-2 px-3 sm:px-4 py-3 bg-white/5 border-b border-green-500/20">
                             <div className="flex gap-2">
                                 <div className="w-3 h-3 rounded-full bg-red-500/50" />
                                 <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
                                 <div className="w-3 h-3 rounded-full bg-green-500/50" />
                             </div>
-                            <span className="text-xs text-green-500/50 tracking-widest uppercase">thomas@portfolio ~ portfolio-sh</span>
-                            <div className="w-12" />
+                            <span className="hidden sm:block text-[10px] sm:text-xs text-green-500/50 tracking-widest uppercase truncate max-w-[60vw]">
+                                thomas@portfolio ~ portfolio-sh
+                            </span>
+                            <div className="hidden sm:block w-12" />
                         </div>
 
                         {/* Matrix Background Effect */}
@@ -255,29 +258,29 @@ const Terminal = () => {
                         {/* Output Area */}
                         <div
                             ref={scrollRef}
-                            className="flex-1 p-4 md:p-6 overflow-y-auto space-y-2 relative z-10 custom-scrollbar"
+                            className="flex-1 p-3 sm:p-4 md:p-6 overflow-y-auto space-y-2 relative z-10 custom-scrollbar"
                         >
                             {history.map((line, idx) => (
-                                <div key={idx} className={`whitespace-pre-wrap leading-relaxed ${line.type === 'error' ? 'text-red-400' : line.type === 'input' ? 'text-white' : 'text-green-400'}`}>
+                                <div key={idx} className={`whitespace-pre-wrap break-words leading-relaxed ${line.type === 'error' ? 'text-red-400' : line.type === 'input' ? 'text-white' : 'text-green-400'}`}>
                                     {line.type === 'component' ? line.content : line.content}
                                 </div>
                             ))}
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 md:p-6 bg-white/5 relative z-10 flex items-center gap-2 group">
-                            <span className="text-blue-400 font-bold">thomas@portfolio:~$</span>
+                        <div className="p-3 sm:p-4 md:p-6 bg-white/5 relative z-10 flex flex-col sm:flex-row sm:items-center gap-2 group">
+                            <span className="text-blue-400 font-bold text-[11px] sm:text-sm whitespace-nowrap">thomas@portfolio:~$</span>
                             <input
                                 ref={inputRef}
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={handleInputKeyDown}
-                                className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-green-900/50"
+                                className="w-full sm:flex-1 min-w-0 bg-transparent border-none outline-none text-white font-mono placeholder:text-green-900/50"
                                 placeholder="type 'help'..."
                                 autoFocus
                             />
-                            <span className="text-[10px] text-green-500/30">Tab to complete</span>
+                            <span className="hidden md:inline text-[10px] text-green-500/30">Tab to complete</span>
                         </div>
 
                         <style>{`

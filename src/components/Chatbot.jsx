@@ -65,7 +65,7 @@ const Chatbot = () => {
     ];
 
     return (
-        <div className="fixed bottom-5 right-5 z-[120] flex flex-col items-end pointer-events-auto">
+        <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-[120] flex max-w-[calc(100vw-1rem)] flex-col items-end pointer-events-auto">
             <AnimatePresence>
                 {/* Welcome Modal */}
                 {showWelcome && !isOpen && (
@@ -73,7 +73,7 @@ const Chatbot = () => {
                         initial={{ opacity: 0, y: 20, scale: 0.9, x: 20 }}
                         animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
                         exit={{ opacity: 0, scale: 0.8, x: 20 }}
-                        className="mb-4 mr-2 max-w-[280px] bg-white text-black p-5 rounded-3xl rounded-br-none shadow-2xl relative border-2 border-blue-500/20 backdrop-blur-xl"
+                        className="relative mb-3 mr-0 sm:mr-2 w-[min(280px,calc(100vw-1rem))] bg-white text-black p-4 sm:p-5 rounded-3xl rounded-br-none shadow-2xl border-2 border-blue-500/20 backdrop-blur-xl"
                     >
                         <button
                             onClick={() => setShowWelcome(false)}
@@ -105,10 +105,10 @@ const Chatbot = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.9 }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="mb-4 w-80 bg-[#1a1a2e] border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[500px]"
+                        className="mb-3 w-[min(20rem,calc(100vw-1rem))] sm:w-80 bg-[#1a1a2e] border border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] sm:max-h-[500px]"
                     >
                         {/* Header */}
-                        <div className="bg-[#2d2d44] p-4 flex items-center justify-between border-b border-white/5">
+                        <div className="bg-[#2d2d44] p-3 sm:p-4 flex items-center justify-between border-b border-white/5">
                             <div className="flex items-center gap-3">
                                 <div className="relative">
                                     <img
@@ -120,7 +120,7 @@ const Chatbot = () => {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-sm">Virtual Assistant</h4>
-                                    <p className="text-xs text-gray-400">Online</p>
+                                    <p className="text-[10px] sm:text-xs text-gray-400">Online</p>
                                 </div>
                             </div>
                             <button
@@ -132,14 +132,14 @@ const Chatbot = () => {
                         </div>
 
                         {/* Chat Area */}
-                        <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-[#030412]/50 custom-scrollbar h-[350px]">
+                        <div className="flex-1 p-3 sm:p-4 overflow-y-auto space-y-3 sm:space-y-4 bg-[#030412]/50 custom-scrollbar h-[52vh] sm:h-[350px]">
                             {messages.map((msg, idx) => (
                                 <div
                                     key={idx}
                                     className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'}`}
                                 >
                                     <div
-                                        className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.isBot
+                                        className={`max-w-[85%] sm:max-w-[80%] p-2.5 sm:p-3 rounded-2xl text-xs sm:text-sm ${msg.isBot
                                             ? 'bg-[#2d2d44] text-white rounded-tl-none'
                                             : 'bg-blue-600 text-white rounded-tr-none'
                                             }`}
@@ -161,13 +161,13 @@ const Chatbot = () => {
                         </div>
 
                         {/* Options */}
-                        <div className="p-3 bg-[#1a1a2e] border-t border-white/5 grid gap-2">
-                            <p className="text-xs text-gray-500 mb-1 ml-1">Suggested:</p>
+                        <div className="p-2.5 sm:p-3 bg-[#1a1a2e] border-t border-white/5 grid gap-2">
+                            <p className="text-[11px] sm:text-xs text-gray-500 mb-1 ml-1">Suggested:</p>
                             {options.map((opt, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => handleOptionClick(opt)}
-                                    className="text-sm text-left p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-blue-300 border border-blue-500/20"
+                                    className="text-xs sm:text-sm text-left p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-blue-300 border border-blue-500/20"
                                 >
                                     {opt.label}
                                 </button>
@@ -182,7 +182,7 @@ const Chatbot = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => { setIsOpen(!isOpen); setShowWelcome(false); }}
-                className="w-14 h-14 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg border-2 border-white/20 overflow-hidden relative group"
+                className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg border-2 border-white/20 overflow-hidden relative group"
             >
                 {!isOpen ? (
                     <img src="/assets/my_image.jpeg" className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="Chat" />

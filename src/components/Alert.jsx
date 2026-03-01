@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 const Alert = ({ type, text }) => {
   const alertVarients = {
     hidden: { opacity: 0, y: 50, scale: 0.8 },
@@ -8,7 +8,7 @@ const Alert = ({ type, text }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed z-50 flex items-center justify-center bottom-5 right-5"
+        className="fixed z-50 bottom-3 left-3 right-3 sm:right-5 sm:left-auto flex items-center justify-center sm:justify-end"
         initial="hidden"
         animate="visible"
         exit="exit"
@@ -18,16 +18,16 @@ const Alert = ({ type, text }) => {
         <div
           className={`p-2 ${
             type === "danger" ? "bg-red-800" : "bg-royal"
-          } items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex rounded-md p-5`}
+          } w-full sm:w-auto items-center text-indigo-100 leading-none rounded-xl sm:rounded-full flex flex-col sm:flex-row gap-2 sm:gap-0 p-4 sm:p-5`}
         >
           <p
             className={`flex rounded-full ${
               type === "danger" ? "bg-red-500" : "bg-lavender"
-            } uppercase px-2 py-1 text-xs font-semibold mr-3`}
+            } uppercase px-2 py-1 text-xs font-semibold sm:mr-3`}
           >
             {type === "danger" ? "Failed" : "Success"}
           </p>
-          <p className="mr-2 text-left">{text}</p>
+          <p className="sm:mr-2 text-left text-sm">{text}</p>
         </div>
       </motion.div>
     </AnimatePresence>

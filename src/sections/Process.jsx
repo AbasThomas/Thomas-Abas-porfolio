@@ -42,7 +42,7 @@ const Process = () => {
 
             <div className="max-w-7xl mx-auto px-6 md:px-12">
                 {/* Section Header */}
-                <div className="mb-24 flex flex-col items-center text-center">
+                <div className="mb-16 md:mb-24 flex flex-col items-center text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ const Process = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter italic"
+                        className="text-4xl sm:text-5xl md:text-7xl font-black text-white uppercase tracking-tighter italic"
                     >
                         My Workflow<span className="text-blue-500">.</span>
                     </motion.h2>
@@ -83,7 +83,7 @@ const Process = () => {
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative z-10">
                         {steps.map((step, index) => (
                             <motion.div
                                 key={index}
@@ -93,7 +93,7 @@ const Process = () => {
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 className="group relative"
                             >
-                                <div className="h-full p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl transition-all duration-500 hover:border-white/20 hover:bg-white/[0.04] flex flex-col items-start overflow-hidden min-h-[380px]">
+                                <div className="h-full p-6 sm:p-8 lg:p-10 rounded-[2rem] sm:rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl transition-all duration-500 hover:border-white/20 hover:bg-white/[0.04] flex flex-col items-start overflow-hidden min-h-[320px] sm:min-h-[360px] lg:min-h-[380px]">
                                     {/* Gradient Overlay on Hover */}
                                     <div
                                         className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
@@ -101,13 +101,13 @@ const Process = () => {
                                     />
 
                                     {/* Step Number */}
-                                    <div className="absolute top-8 right-8 text-5xl font-black text-white/[0.03] group-hover:text-white/[0.08] transition-all duration-500 italic">
+                                    <div className="absolute top-6 right-6 sm:top-8 sm:right-8 text-4xl sm:text-5xl font-black text-white/[0.03] group-hover:text-white/[0.08] transition-all duration-500 italic">
                                         {step.id}
                                     </div>
 
                                     {/* Icon Container */}
                                     <div
-                                        className="w-16 h-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-3xl mb-10 transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] relative z-10"
+                                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-2xl sm:text-3xl mb-8 sm:mb-10 transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] relative z-10"
                                         style={{ color: step.color }}
                                     >
                                         <div className="absolute inset-0 rounded-2xl bg-current opacity-10 blur-sm" />
@@ -115,10 +115,10 @@ const Process = () => {
                                     </div>
 
                                     <div className="relative z-10 mt-auto">
-                                        <h4 className="text-2xl font-black text-white uppercase tracking-tight mb-4 group-hover:text-white transition-colors duration-300 italic">
+                                        <h4 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight mb-3 sm:mb-4 group-hover:text-white transition-colors duration-300 italic">
                                             {step.title}
                                         </h4>
-                                        <p className="text-sm font-medium text-gray-500 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                                        <p className="text-xs sm:text-sm font-medium text-gray-500 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                                             {step.description}
                                         </p>
                                     </div>

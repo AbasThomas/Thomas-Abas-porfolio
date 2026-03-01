@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navLinks } from "../constants";
+import { navLinks, resumeFilePath } from "../constants";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = ["home", "about", "projects", "experience", "contact"];
+      const sections = ["home", "about", "projects", "resume", "experience", "contact"];
       for (const sectionId of sections) {
         const section = document.getElementById(sectionId);
         if (section) {
@@ -66,7 +66,14 @@ const Navbar = () => {
 
           {/* CTA & Mobile Toggle - Right column */}
           <div className="flex-1 flex justify-end items-center gap-4">
-            <div className="hidden md:block">
+            <div className="hidden md:flex items-center gap-2">
+              <a
+                href={resumeFilePath}
+                download="Thomas Abas Resume.pdf"
+                className="px-4 py-2.5 border border-white/15 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all hover:border-blue-500/50 hover:bg-blue-600/10"
+              >
+                Resume
+              </a>
               <a
                 href="#contact"
                 className="px-6 py-2.5 bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] rounded-xl transition-all hover:scale-105 active:scale-95 hover:bg-blue-600 hover:text-white"
@@ -129,7 +136,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 30 }}
                   transition={{ delay: 0.5 }}
-                  className="mt-10"
+                  className="mt-10 flex flex-col gap-4 items-center"
                 >
                   <a
                     href="#contact"
@@ -137,6 +144,14 @@ const Navbar = () => {
                     className="px-12 py-5 bg-blue-600 text-white font-black uppercase tracking-widest text-xs rounded-2xl shadow-2xl shadow-blue-600/20"
                   >
                     Start a Project
+                  </a>
+                  <a
+                    href={resumeFilePath}
+                    download="Thomas Abas Resume.pdf"
+                    onClick={() => setIsOpen(false)}
+                    className="px-10 py-4 border border-white/20 text-white font-black uppercase tracking-widest text-xs rounded-2xl bg-white/5"
+                  >
+                    Download Resume
                   </a>
                 </motion.div>
               </div>

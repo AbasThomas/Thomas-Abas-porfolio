@@ -47,7 +47,7 @@ const Project = ({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`relative flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center group`}
+      className={`relative flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center group`}
     >
       {/* 3D Image Container */}
       <motion.div
@@ -73,7 +73,7 @@ const Project = ({
         {/* Floating Tag Overlay */}
         <div
           style={{ transform: "translateZ(80px)" }}
-          className="absolute bottom-10 right-10 flex gap-2"
+          className="hidden sm:flex absolute bottom-6 right-6 lg:bottom-10 lg:right-10 gap-2"
         >
           {tags.slice(0, 2).map((tag, i) => (
             <div key={i} className="px-4 py-2 bg-black/50 backdrop-blur-xl border border-white/10 rounded-xl flex items-center gap-2">
@@ -93,12 +93,12 @@ const Project = ({
         >
           <div className="flex flex-col gap-2">
             <span className="text-blue-500 font-black text-xs uppercase tracking-[0.3em]">Project {index + 1}</span>
-            <h3 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">
               {title}<span className="text-blue-600">.</span>
             </h3>
           </div>
 
-          <p className="text-gray-400 text-lg font-medium leading-relaxed max-w-md">
+          <p className="text-gray-400 text-base sm:text-lg font-medium leading-relaxed max-w-md">
             {description}
           </p>
 
@@ -110,18 +110,18 @@ const Project = ({
             ))}
           </div>
 
-          <div className={`flex items-center gap-6 pt-4 ${isEven ? '' : 'lg:justify-end'}`}>
+          <div className={`flex flex-wrap items-center gap-4 sm:gap-6 pt-4 ${isEven ? '' : 'lg:justify-end'}`}>
             <a
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-3 px-8 py-4 bg-white text-black font-black uppercase tracking-widest text-[10px] rounded-2xl hover:bg-blue-600 hover:text-white transition-all duration-500 hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/10"
+              className="flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-black font-black uppercase tracking-widest text-[9px] sm:text-[10px] rounded-2xl hover:bg-blue-600 hover:text-white transition-all duration-500 hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/10"
             >
               Live Preview <FiArrowUpRight className="text-lg" />
             </a>
             <a
               href="#"
-              className="w-14 h-14 flex items-center justify-center border border-white/10 rounded-2xl text-white/40 hover:text-white hover:border-white/30 transition-all duration-500"
+              className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center border border-white/10 rounded-2xl text-white/40 hover:text-white hover:border-white/30 transition-all duration-500"
             >
               <FiGithub className="text-xl" />
             </a>
