@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaReact, FaJs, FaNodeJs, FaJava, FaAngular } from "react-icons/fa";
-import { SiTailwindcss, SiTypescript, SiNestjs, SiNextdotjs, SiGit, SiThreedotjs, SiSpringboot, SiPostman, SiFramer } from "react-icons/si";
+import { SiTailwindcss, SiTypescript, SiNestjs, SiNextdotjs, SiGit, SiThreedotjs, SiSpringboot, SiPostman, SiFramer, SiFlutter, SiDart } from "react-icons/si";
 import { TbBrandCpp, TbBrandCSharp } from "react-icons/tb";
 
 const skills = [
@@ -19,6 +19,8 @@ const skills = [
     { name: "Git", level: "Expert", color: "#F05032", icon: <SiGit /> },
     { name: "Postman", level: "Expert", color: "#FF6C37", icon: <SiPostman /> },
     { name: "Framer Motion", level: "High", color: "#0055FF", icon: <SiFramer /> },
+    { name: "Flutter", level: "Intermediate", color: "#02569B", icon: <SiFlutter /> },
+    { name: "Dart", level: "Intermediate", color: "#0175C2", icon: <SiDart /> },
 ];
 
 const Skills = () => {

@@ -143,7 +143,24 @@ export const myProjects = [
       { id: 4, name: "Security", path: "/assets/logos/security.svg" },
     ],
   },
-
+ {
+    id: 7,
+    title: "Unibridge",
+    description:
+      "A virtual campus platform designed to connect university students with peers and lecturers worldwide.",
+    subDescription: [
+      "UniBridge is a virtual campus platform designed to connect university students with peers and lecturers worldwide. It creates a collaborative online space where users can share resources, exchange knowledge, seek academic guidance, network for projects or study groups, and access educational materials—breaking down geographical barriers to foster richer learning experiences and community support in higher education.",
+    ],
+    href: "https://unibridge.pxxl.pro/",
+    logo: "",
+    image: "/assets/projects/unibridge.png",
+    tags: [
+      { id: 1, name: "Node.js", path: "/assets/logos/nodejs.svg" },
+      { id: 2, name: "Next.js", path: "/assets/logos/nextjs.svg" },
+      { id: 3, name: "AI", path: "/assets/logos/ai.svg" },
+      { id: 4, name: "Supabase", path: "/assets/logos/supabase.svg" },
+    ],
+  },
 ];
 
 export const navLinks = [
@@ -211,6 +228,35 @@ export const workExperiences = [
       "Specialized in building responsive, accessible, and fast UI components using React and TypeScript.",
       "Collaborated with designers to implement pixel-perfect designs and complex Framer Motion animations.",
       "Optimized frontend performance reducing overall application load times by 40%."
+    ],
+    icon: '/assets/react.svg',
+    animation: 'victory',
+  },
+   {
+    id: 4,
+    name: 'Thomas Abas',
+    job: 'Junior Frontend Engineer',
+    date: '2024 - 2025',
+    title: 'Arewagate',
+    contents: [
+      "Junior Frontend Engineer at Arewagate",
+      "Mapped api endpoints to frontend components",
+      "Built responsive, accessible, and fast UI components using NextJs and TypeScript.",
+      "Collaborated with designers to implement pixel-perfect designs",
+      "Optimized frontend performance reducing overall application load times."
+    ],
+    icon: '/assets/react.svg',
+    animation: 'victory',
+  },
+   {
+    id: 4,
+    name: 'Thomas Abas',
+    job: 'Frontend Engineer',
+    date: '2024 - 2025',
+    title: 'Alte By Green',
+    contents: [
+      "Built responsive, accessible, and fast UI components using React and Javascript.",
+      "Collaborated with designers and backend developers to implement pixel-perfect designs",
     ],
     icon: '/assets/react.svg',
     animation: 'victory',

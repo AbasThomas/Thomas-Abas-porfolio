@@ -12,6 +12,8 @@ export function Frameworks() {
     "git",
     "figma",
     "postman",
+    "flutter",
+    "dart",
     // Optional (uncomment if you want to show backend tools)
     // "dotnet",
     // "blazor",
