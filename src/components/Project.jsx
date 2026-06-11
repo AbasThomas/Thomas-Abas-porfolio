@@ -1,134 +1,46 @@
-import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { FiArrowUpRight, FiGithub } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
 
-const Project = ({
-  title,
-  description,
-  subDescription,
-  href,
-  image,
-  tags,
-  index
-}) => {
-  const cardRef = useRef(null);
-
-  // Parallax / 3D Tilt Logic
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
-
-  const handleMouseMove = (event) => {
-    const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  const isEven = index % 2 === 0;
-
+const Project = ({ title, description, href, image, tags }) => {
   return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`relative flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center group`}
-    >
-      {/* 3D Image Container */}
-      <motion.div
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
-        className="relative w-full lg:w-3/5 aspect-[16/10] rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl"
-      >
-        <motion.div
-          style={{ transform: "translateZ(50px)" }}
-          className="absolute inset-4 rounded-[2rem] overflow-hidden border border-white/10"
-        >
+    <article className="group overflow-hidden rounded-lg border border-white/10 bg-zinc-950 transition-colors hover:border-white/20">
+      <a href={href} target="_blank" rel="noreferrer" className="block">
+        <div className="aspect-[16/10] overflow-hidden border-b border-white/10 bg-zinc-900">
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="h-full w-full object-cover opacity-85 grayscale transition duration-500 group-hover:scale-[1.03] group-hover:opacity-100 group-hover:grayscale-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#02030d] via-transparent to-transparent opacity-60" />
-        </motion.div>
+        </div>
+      </a>
 
-        {/* Floating Tag Overlay */}
-        <div
-          style={{ transform: "translateZ(80px)" }}
-          className="hidden sm:flex absolute bottom-6 right-6 lg:bottom-10 lg:right-10 gap-2"
-        >
-          {tags.slice(0, 2).map((tag, i) => (
-            <div key={i} className="px-4 py-2 bg-black/50 backdrop-blur-xl border border-white/10 rounded-xl flex items-center gap-2">
-              <img src={tag.path} alt={tag.name} className="w-4 h-4" />
-              <span className="text-[10px] font-black text-white uppercase tracking-widest">{tag.name}</span>
-            </div>
+      <div className="p-5 md:p-6">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="display-serif text-2xl leading-tight text-white">{title}</h3>
+          <a
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-white/10 text-white/60 transition-colors hover:border-white/25 hover:text-white"
+            aria-label={`Open ${title}`}
+          >
+            <FiArrowUpRight />
+          </a>
+        </div>
+
+        <p className="mt-3 text-sm leading-7 text-white/55">{description}</p>
+
+        <div className="mt-5 flex flex-wrap gap-2">
+          {(tags || []).slice(0, 4).map((tag) => (
+            <span
+              key={`${title}-${tag.name}`}
+              className="rounded-md border border-white/10 px-2.5 py-1 text-xs text-white/45"
+            >
+              {tag.name}
+            </span>
           ))}
         </div>
-      </motion.div>
-
-      {/* Info Column */}
-      <div className={`w-full lg:w-2/5 flex flex-col ${isEven ? 'items-start' : 'items-start lg:items-end lg:text-right'}`}>
-        <motion.div
-          initial={{ opacity: 0, x: isEven ? -20 : 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="space-y-6"
-        >
-          <div className="flex flex-col gap-2">
-            <span className="text-blue-500 font-black text-xs uppercase tracking-[0.3em]">Project {index + 1}</span>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">
-              {title}<span className="text-blue-600">.</span>
-            </h3>
-          </div>
-
-          <p className="text-gray-400 text-base sm:text-lg font-medium leading-relaxed max-w-md">
-            {description}
-          </p>
-
-          <div className={`flex flex-wrap gap-3 ${isEven ? '' : 'lg:justify-end'}`}>
-            {tags.map((tag, i) => (
-              <span key={i} className="text-[9px] font-black text-white/30 uppercase tracking-[0.2em] border border-white/5 px-3 py-1 rounded-lg">
-                {tag.name}
-              </span>
-            ))}
-          </div>
-
-          <div className={`flex flex-wrap items-center gap-4 sm:gap-6 pt-4 ${isEven ? '' : 'lg:justify-end'}`}>
-            <a
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-black font-black uppercase tracking-widest text-[9px] sm:text-[10px] rounded-2xl hover:bg-blue-600 hover:text-white transition-all duration-500 hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/10"
-            >
-              Live Preview <FiArrowUpRight className="text-lg" />
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center border border-white/10 rounded-2xl text-white/40 hover:text-white hover:border-white/30 transition-all duration-500"
-            >
-              <FiGithub className="text-xl" />
-            </a>
-          </div>
-        </motion.div>
       </div>
-    </div>
+    </article>
   );
 };
 

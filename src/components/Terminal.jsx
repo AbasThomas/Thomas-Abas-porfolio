@@ -56,6 +56,15 @@ const Terminal = () => {
     const scrollRef = useRef(null);
     const inputRef = useRef(null);
 
+    const scrollToSection = (target) => {
+        if (window.portfolioScrollTo) {
+            window.portfolioScrollTo(target);
+            return;
+        }
+
+        document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === '`') {
@@ -106,22 +115,22 @@ const Terminal = () => {
                 return;
             case 'about':
             case 'cd about':
-                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                scrollToSection("#about");
                 newHistory.push({ type: 'output', content: 'Navigating to About section...' });
                 break;
             case 'skills':
             case 'cd skills':
-                document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
+                scrollToSection("#skills");
                 newHistory.push({ type: 'output', content: 'Navigating to Skills section...' });
                 break;
             case 'projects':
             case 'ls projects':
             case 'cd projects':
-                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                scrollToSection("#projects");
                 newHistory.push({ type: 'output', content: 'Navigating to Projects section...' });
                 break;
             case 'contact':
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                scrollToSection("#contact");
                 newHistory.push({ type: 'output', content: 'Opening Contact section...' });
                 break;
             case 'ls':
@@ -153,7 +162,7 @@ const Terminal = () => {
             default:
                 if (trimmedCmd.startsWith('open ')) {
                     const id = trimmedCmd.split(' ')[1];
-                    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                    scrollToSection("#projects");
                     newHistory.push({ type: 'output', content: `Opening project ${id}...` });
                     break;
                 }

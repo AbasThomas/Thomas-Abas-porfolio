@@ -122,8 +122,26 @@ export const myProjects = [
       { id: 4, name: "AI", path: "/assets/logos/ai.svg" },
     ],
   },
-  {
+ {
     id: 7,
+    title: "Unibridge",
+    description:
+      "A virtual campus platform designed to connect university students with peers and lecturers worldwide.",
+    subDescription: [
+      "UniBridge is a virtual campus platform designed to connect university students with peers and lecturers worldwide. It creates a collaborative online space where users can share resources, exchange knowledge, seek academic guidance, network for projects or study groups, and access educational materials—breaking down geographical barriers to foster richer learning experiences and community support in higher education.",
+    ],
+    href: "https://unibridge.pxxl.pro/",
+    logo: "",
+    image: "/assets/projects/unibridge.png",
+    tags: [
+      { id: 1, name: "Node.js", path: "/assets/logos/nodejs.svg" },
+      { id: 2, name: "Next.js", path: "/assets/logos/nextjs.svg" },
+      { id: 3, name: "AI", path: "/assets/logos/ai.svg" },
+      { id: 4, name: "Supabase", path: "/assets/logos/supabase.svg" },
+    ],
+  },
+    {
+    id: 8,
     title: "Envvy",
     description:
       "Secure 'GitHub for envs' — manage environment variables with Git-like commands but enhanced security.",
@@ -143,32 +161,29 @@ export const myProjects = [
       { id: 4, name: "Security", path: "/assets/logos/security.svg" },
     ],
   },
- {
-    id: 7,
-    title: "Unibridge",
+   {
+    id:  9,
+    title: "PassMark",
     description:
-      "A virtual campus platform designed to connect university students with peers and lecturers worldwide.",
+      "PassMark is an AI-powered exam preparation platform that helps students learn smarter through personalized practice questions, performance tracking, and adaptive learning tools.",
     subDescription: [
-      "UniBridge is a virtual campus platform designed to connect university students with peers and lecturers worldwide. It creates a collaborative online space where users can share resources, exchange knowledge, seek academic guidance, network for projects or study groups, and access educational materials—breaking down geographical barriers to foster richer learning experiences and community support in higher education.",
+      "PassMark is a digital learning platform designed to help students excel in examinations through AI-driven study assistance, mock tests, and personalized learning experiences.",
     ],
-    href: "https://unibridge.pxxl.pro/",
+    href: "https://passmark.live/",
     logo: "",
-    image: "/assets/projects/unibridge.png",
-    tags: [
-      { id: 1, name: "Node.js", path: "/assets/logos/nodejs.svg" },
-      { id: 2, name: "Next.js", path: "/assets/logos/nextjs.svg" },
-      { id: 3, name: "AI", path: "/assets/logos/ai.svg" },
-      { id: 4, name: "Supabase", path: "/assets/logos/supabase.svg" },
-    ],
-  },
+    image: "/assets/projects/passmark.png",
+
+  }
 ];
 
 export const navLinks = [
   { id: 1, name: 'Home', href: '#home' },
   { id: 2, name: 'About', href: '#about' },
   { id: 3, name: 'Projects', href: '#projects' },
-  { id: 4, name: 'Resume', href: '#resume' },
-  { id: 5, name: 'Contact', href: '#contact' },
+  { id: 4, name: 'Skills', href: '#skills' },
+  { id: 5, name: 'Experience', href: '#experience' },
+  { id: 6, name: 'Socials', href: '#socials' },
+  { id: 7, name: 'Contact', href: '#contact' },
 ];
 
 export const resumeFilePath = "/Thomas%20Resume.pdf";
@@ -189,26 +204,12 @@ export const workExperiences = [
     icon: '/assets/logos/ai.svg',
     animation: 'victory',
   },
-  {
-    id: 2,
-    name: 'Thomas Abas',
-    job: 'Co-Founder & Lead Engineer',
-    date: '2025 - Present',
-    title: 'Medblock Startup',
-    contents: [
-      "Pioneering a blockchain-secured national EMR infrastructure for decentralized medical record management.",
-      "Designing Ethereum-based smart contracts for role-based access control and patient data privacy.",
-      "Implementing high-performance interoperability layers for seamless healthcare data sharing.",
-      "Focusing on building and scaling secure, immutable systems for national healthcare adoption."
-    ],
-    icon: '/assets/logos/blockchain.svg',
-    animation: 'salute',
-  },
+
   {
     id: 3,
     name: 'Thomas Abas',
     job: 'Full Stack Developer',
-    date: '2023 - 2024',
+    date: '2023 - Present',
     title: 'Freelance & Open Source',
     contents: [
       "Built high-performance web applications using React, Node.js, and modern CSS frameworks.",
@@ -218,42 +219,13 @@ export const workExperiences = [
     icon: '/assets/framer.svg',
     animation: 'clapping',
   },
-  {
-    id: 4,
-    name: 'Thomas Abas',
-    job: 'Frontend Engineer',
-    date: '2022 - 2023',
-    title: 'Tech Startup Solution',
-    contents: [
-      "Specialized in building responsive, accessible, and fast UI components using React and TypeScript.",
-      "Collaborated with designers to implement pixel-perfect designs and complex Framer Motion animations.",
-      "Optimized frontend performance reducing overall application load times by 40%."
-    ],
-    icon: '/assets/react.svg',
-    animation: 'victory',
-  },
-   {
-    id: 4,
-    name: 'Thomas Abas',
-    job: 'Junior Frontend Engineer',
-    date: '2024 - 2025',
-    title: 'Arewagate',
-    contents: [
-      "Junior Frontend Engineer at Arewagate",
-      "Mapped api endpoints to frontend components",
-      "Built responsive, accessible, and fast UI components using NextJs and TypeScript.",
-      "Collaborated with designers to implement pixel-perfect designs",
-      "Optimized frontend performance reducing overall application load times."
-    ],
-    icon: '/assets/react.svg',
-    animation: 'victory',
-  },
+   
    {
     id: 4,
     name: 'Thomas Abas',
     job: 'Frontend Engineer',
     date: '2024 - 2025',
-    title: 'Alte By Green',
+    title: 'Alte By Greene',
     contents: [
       "Built responsive, accessible, and fast UI components using React and Javascript.",
       "Collaborated with designers and backend developers to implement pixel-perfect designs",
@@ -265,40 +237,42 @@ export const workExperiences = [
 
 export const experiences = workExperiences; // Alias for compatibility
 
-export const clientReviews = [
-  {
-    id: 1,
-    name: 'James Wilson',
-    position: 'CEO at TechFlow',
-    img: 'assets/review1.png',
-    review: 'Thomas is an exceptional developer. His attention to detail in the UI and his ability to solve complex backend problems is truly impressive.',
-  },
-  {
-    id: 2,
-    name: 'Sarah Chen',
-    position: 'Product Manager',
-    img: 'assets/review2.png',
-    review: 'Working with Thomas was a breeze. He delivered our project ahead of schedule and the 3D interactive elements he added really wowed our users.',
-  },
-];
 
 export const mySocials = [
   {
     id: 1,
-    name: 'GitHub',
-    icon: '/assets/logos/github.svg',
-    url: 'https://github.com/ThomasAbas',
+    name: 'Instagram',
+    handle: '@thomastheguy0',
+    url: 'https://www.instagram.com/thomastheguy0/',
   },
   {
     id: 2,
-    name: 'LinkedIn',
-    icon: '/assets/socials/linkedIn.svg',
-    url: 'https://linkedin.com/in/thomasabas',
+    name: 'TikTok',
+    handle: '@thomasabas',
+    url: 'https://www.tiktok.com/@thomasabas',
   },
   {
     id: 3,
+    name: 'Substack',
+    handle: 'thomastheguy',
+    url: 'https://substack.com/@thomastheguy',
+  },
+  {
+    id: 4,
+    name: 'Stack Overflow',
+    handle: 'your-stack-overflow',
+    url: 'https://example.com/stackoverflow',
+  },
+  {
+    id: 5,
+    name: 'GitHub',
+    handle: '@AbasThomas',
+    url: 'https://github.com/AbasThomas',
+  },
+  {
+    id: 6,
     name: 'X',
-    icon: '/assets/twitter.svg', // Will use react-icons if this fails
+    handle: '@Thomas_TheGuy',
     url: 'https://x.com/Thomas_TheGuy',
   },
 ];

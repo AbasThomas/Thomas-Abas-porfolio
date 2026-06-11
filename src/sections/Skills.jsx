@@ -1,123 +1,113 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { FaReact, FaJs, FaNodeJs, FaJava, FaAngular } from "react-icons/fa";
-import { SiTailwindcss, SiTypescript, SiNestjs, SiNextdotjs, SiGit, SiThreedotjs, SiSpringboot, SiPostman, SiFramer, SiFlutter, SiDart } from "react-icons/si";
-import { TbBrandCpp, TbBrandCSharp } from "react-icons/tb";
+import { SiTypescript } from "react-icons/si";
 
-const skills = [
-    { name: "React", level: "Expert", color: "#61DAFB", icon: <FaReact /> },
-    { name: "JavaScript", level: "Expert", color: "#F7DF1E", icon: <FaJs /> },
-    { name: "Node.js", level: "Intermediate", color: "#339933", icon: <FaNodeJs /> },
-    { name: "Java", level: "Expert", color: "#ED8B00", icon: <FaJava /> },
-    { name: "Spring Boot", level: "Expert", color: "#6DB33F", icon: <SiSpringboot /> },
-    { name: "TypeScript", level: "High", color: "#3178C6", icon: <SiTypescript /> },
-    { name: "Tailwind CSS", level: "Expert", color: "#38B2AC", icon: <SiTailwindcss /> },
-    { name: "NestJS", level: "High", color: "#E0234E", icon: <SiNestjs /> },
-    { name: "Three.js", level: "High", color: "#FFFFFF", icon: <SiThreedotjs /> },
-    { name: "Next.js", level: "High", color: "#FFFFFF", icon: <SiNextdotjs /> },
-    { name: "CSharp", level: "Intermediate", color: "#239120", icon: <TbBrandCSharp /> },
-    { name: "Git", level: "Expert", color: "#F05032", icon: <SiGit /> },
-    { name: "Postman", level: "Expert", color: "#FF6C37", icon: <SiPostman /> },
-    { name: "Framer Motion", level: "High", color: "#0055FF", icon: <SiFramer /> },
-    { name: "Flutter", level: "Intermediate", color: "#02569B", icon: <SiFlutter /> },
-    { name: "Dart", level: "Intermediate", color: "#0175C2", icon: <SiDart /> },
+const languageBannerItems = [
+  { name: "React", logo: "/assets/logos/react.svg" },
+  { name: "Next.js", logo: "/assets/logos/nextjs.svg" },
+  { name: "JavaScript", logo: "/assets/logos/javascript.svg" },
+  { name: "TypeScript", Icon: SiTypescript, color: "#3178c6" },
+  { name: "Tailwind CSS", logo: "/assets/logos/tailwindcss.svg" },
+  { name: "Node.js", logo: "/assets/logos/nodejs.svg" },
+  { name: "NestJS", logo: "/assets/logos/nestjs.svg" },
+  { name: "Spring Boot", logo: "/assets/logos/spring.svg" },
+  { name: "Java", logo: "/assets/logos/java.svg" },
+  { name: "Firebase", logo: "/assets/logos/firebase.svg" },
+  { name: "Supabase", logo: "/assets/logos/supabase.svg" },
+  { name: "MongoDB", logo: "/assets/logos/mongodb.svg" },
+  { name: "Postman", logo: "/assets/logos/postman.svg" },
+  { name: "Vite", logo: "/assets/logos/vitejs.svg" },
+  { name: "Git", logo: "/assets/logos/git.svg" },
+  { name: "Vercel", logo: "/assets/logos/vercel.svg" },
+  { name: "Three.js", logo: "/assets/logos/threejs.svg" },
+  { name: "Framer Motion", logo: "/assets/logos/framer.svg" },
 ];
 
+const skillGroups = [
+  {
+    title: "Frontend",
+    skills: ["React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "Framer Motion"],
+  },
+  {
+    title: "Backend",
+    skills: ["Java", "Spring Boot", "Node.js", "NestJS", "REST APIs", "Authentication"],
+  },
+  {
+    title: "Product Systems",
+    skills: ["Dashboards", "E-commerce", "AI features", "Developer tools", "Healthcare systems", "Event platforms"],
+  },
+  {
+    title: "Workflow",
+    skills: ["Git", "Vercel", "Firebase", "Supabase", "Postman", "System design"],
+  },
+];
+
+const LanguageIcon = ({ item }) => {
+  if (item.Icon) {
+    const Icon = item.Icon;
+    return <Icon className="h-7 w-7" style={{ color: item.color }} aria-hidden="true" />;
+  }
+
+  return <img src={item.logo} alt="" className="h-7 w-7 object-contain" loading="lazy" />;
+};
+
+const LanguageBanner = () => {
+  const repeatedItems = [...languageBannerItems, ...languageBannerItems];
+
+  return (
+    <div className="group relative my-12 overflow-hidden rounded-lg border border-white/10 bg-white/[0.025] py-4">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-black via-black/80 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-black via-black/80 to-transparent" />
+
+      <div className="language-marquee flex w-max gap-3 px-3 group-hover:[animation-play-state:paused]">
+        {repeatedItems.map((item, index) => (
+          <div
+            key={`${item.name}-${index}`}
+            className="language-marquee-card group/card relative flex min-w-40 items-center gap-3 overflow-hidden rounded-md border border-white/10 bg-zinc-950/80 px-4 py-3 text-white/75 transition duration-300 hover:-translate-y-1 hover:border-white/35 hover:bg-white/[0.07] hover:text-white"
+          >
+            <span className="language-marquee-shine" />
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] transition duration-300 group-hover/card:border-white/20">
+              <LanguageIcon item={item} />
+            </span>
+            <span className="relative z-[1] whitespace-nowrap text-sm font-medium">{item.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Skills = () => {
-    return (
-        <section className="relative w-full py-24 overflow-hidden" id="skills">
-            {/* Decorative Background Elements */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-600/[0.02] blur-[150px] rounded-full pointer-events-none" />
+  return (
+    <section id="skills" className="border-b border-white/10 px-4 py-24 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-12 max-w-3xl">
+          <p className="text-sm font-medium text-white/45">Skills</p>
+          <h2 className="display-serif mt-4 text-5xl leading-none text-white md:text-6xl">
+              My Technical Skills.
+          </h2>
+          <p className="mt-5 text-sm leading-7 text-white/55">
+            I work across the full product surface: interfaces, APIs, integrations, deployment, and user workflows.
+          </p>
+        </div>
 
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
-                {/* Header */}
-                <div className="mb-20 flex flex-col items-center text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6"
-                    >
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">Toolkit</span>
-                    </motion.div>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-black text-white uppercase tracking-tighter italic"
-                    >
-                        Tech Stack<span className="text-blue-500">.</span>
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="mt-6 text-sm font-bold text-gray-500 uppercase tracking-widest max-w-lg mx-auto"
-                    >
-                        Crafting digital excellence with a specialized arsenal of modern technologies.
-                    </motion.p>
-                </div>
+        <LanguageBanner />
 
-                {/* Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
-                    {skills.map((skill, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.05 }}
-                            whileHover={{ scale: 1.05, y: -5 }}
-                            className="group relative"
-                        >
-                            <div className="relative h-36 sm:h-40 flex flex-col items-center justify-center rounded-[1.5rem] sm:rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-xl overflow-hidden transition-all duration-500 group-hover:border-white/20 group-hover:bg-white/[0.05]">
-                                {/* Background Glow */}
-                                <div
-                                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
-                                    style={{
-                                        background: `radial-gradient(circle at center, ${skill.color} 0%, transparent 80%)`
-                                    }}
-                                />
-
-                                {/* Icon */}
-                                <div
-                                    className="text-3xl sm:text-4xl mb-3 sm:mb-4 transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
-                                    style={{ color: skill.color }}
-                                >
-                                    {skill.icon}
-                                </div>
-
-                                {/* Text */}
-                                <span className="relative z-10 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] text-white/90 text-center px-2">
-                                    {skill.name}
-                                </span>
-
-                                {/* Skill Level Badge */}
-                                <div
-                                    className="mt-2 px-3 py-0.5 rounded-full border border-white/10 bg-white/5 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                >
-                                    <span className="text-[8px] font-black uppercase tracking-widest text-white/40">
-                                        {skill.level}
-                                    </span>
-                                </div>
-
-                                {/* Top Border Glow */}
-                                <div
-                                    className="absolute top-0 inset-x-0 h-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                    style={{
-                                        background: `linear-gradient(to right, transparent, ${skill.color}, transparent)`,
-                                        boxShadow: `0 0 15px ${skill.color}`
-                                    }}
-                                />
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+        <div className="grid gap-4 md:grid-cols-2">
+          {skillGroups.map((group) => (
+            <article key={group.title} className="rounded-lg border border-white/10 bg-zinc-950 p-6">
+              <h3 className="text-lg font-semibold text-white">{group.title}</h3>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span key={skill} className="rounded-md border border-white/10 px-3 py-1.5 text-sm text-white/60">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Skills;

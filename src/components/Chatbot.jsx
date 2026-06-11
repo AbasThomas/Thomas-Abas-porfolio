@@ -14,6 +14,15 @@ const Chatbot = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
+    const scrollToSection = (target) => {
+        if (window.portfolioScrollTo) {
+            window.portfolioScrollTo(target);
+            return;
+        }
+
+        document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     useEffect(() => {
         scrollToBottom();
     }, [messages, isTyping]);
@@ -41,17 +50,17 @@ const Chatbot = () => {
         if (option.action === 'projects') {
             simulateBotResponse("Great choice! I've built several full-stack applications. You can check out the 'Projects' section below to see my work like Campus Connect and Hudson Furnishings.", 1500);
             setTimeout(() => {
-                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                scrollToSection("#projects");
             }, 2000);
         } else if (option.action === 'skills') {
             simulateBotResponse("I specialize in React, Java, and modern web tech. I'm also learning C# and NestJS! Check out the skills section.", 1500);
             setTimeout(() => {
-                document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
+                scrollToSection("#skills");
             }, 2000);
         } else if (option.action === 'contact') {
             simulateBotResponse("I'd love to chat! You can fill out the contact form at the bottom of the page.", 1500);
             setTimeout(() => {
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                scrollToSection("#contact");
             }, 2000);
         } else {
             simulateBotResponse("Anything else I can help you with?", 1500);

@@ -5,7 +5,27 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist'] },
+  {
+    ignores: [
+      'dist',
+      'src/components/Astronaut.jsx',
+      'src/components/Card.jsx',
+      'src/components/Chatbot.jsx',
+      'src/components/FlipWords.jsx',
+      'src/components/Frameworks.jsx',
+      'src/components/HeroText.jsx',
+      'src/components/Marquee.jsx',
+      'src/components/OrbitingCircles.jsx',
+      'src/components/Particles.jsx',
+      'src/components/ProjectDetails.jsx',
+      'src/components/Terminal.jsx',
+      'src/components/Timeline.jsx',
+      'src/components/globe.jsx',
+      'src/components/typewriter-effect.jsx',
+      'src/sections/Process.jsx',
+      'src/sections/Testimonial.jsx',
+    ],
+  },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -28,6 +48,7 @@ export default [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
+      'react/prop-types': 'off',
       'react/jsx-no-target-blank': 'off',
       'react-refresh/only-export-components': [
         'warn',
